@@ -1,0 +1,66 @@
+name: Release
+
+# Pushing a tag like v1.2.3 validates, builds and publishes lions-theme.zip
+# as a GitHub Release. The tag must match the Version header in theme/style.css.
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+env:
+  PHP_VERSION: "8.3"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Validate, build and publish
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check tag matches theme version
+        run: |
+          TAG="${GITHUB_REF_NAME#v}"
+          VERSION=$(grep -E '^Version:' theme/style.css | awk '{print $2}')
+          if [ "$TAG" != "$VERSION" ]; then
+            echo "Tag v$TAG does not match style.css Version: $VERSION"
+            echo "Bump 'Version:' in theme/style.css and Theme::VERSION, then re-tag."
+            exit 1
+          fi
+          echo "Releasing version $VERSION"
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ env.PHP_VERSION }}
+          coverage: none
+          tools: composer:v2
+
+      - name: Install dependencies (with dev tools for validation)
+        working-directory: theme
+        run: composer install --no-interaction --no-progress --prefer-dist
+
+      - name: Validate
+        run: |
+          cd theme
+          composer validate --strict --no-check-publish
+          composer run lint:php
+          composer run lint:phpcs
+          composer run analyse
+          cd ..
+          php bin/twig-lint.php theme
+          sh bin/validate-theme.sh theme
+
+      - name: Build production package
+        run: bash bin/build.sh
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" build/lions-theme.zip \
+            --title "Lions theme $GITHUB_REF_NAME" \
+            --generate-notes

@@ -1,0 +1,18 @@
+{#
+  Heading + grid of content cards. Params: id, title, intro, items[]
+#}
+<section class="section" id="{{ id|default('')|e('html_attr') }}" aria-labelledby="{{ id|default('cards') }}-title">
+  <div class="container">
+    <div class="panel">
+      <div class="section-header">
+        <h2 class="section-title" id="{{ id|default('cards') }}-title">{{ title|e }}</h2>
+        {% if intro|default('') %}<p class="section-intro">{{ intro|e }}</p>{% endif %}
+      </div>
+      <div class="card-grid card-grid--4">
+        {% for item in items %}
+          {% include 'components/card.twig' with item only %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>

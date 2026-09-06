@@ -1,0 +1,16 @@
+{#
+  Brand mark + wordmark. Uses the Customizer logo when set, otherwise the bundled
+  Lions emblem (assets/images/logo.svg - a registered trademark of Lions Clubs
+  International; use only within brand guidelines).
+  Params: site, variant ('' | 'light'), linked (default true)
+#}
+{% set linked = linked is defined ? linked : true %}
+{% set tag = linked ? 'a' : 'div' %}
+<{{ tag }} class="brand brand--{{ variant|default('default') }}"{% if linked %} href="{{ site.url }}" rel="home" aria-label="{{ site.name|e('html_attr') }} - {{ __('Home', 'lions-theme') }}"{% endif %}>
+  {% if site.logo %}
+    <img class="brand__logo" src="{{ site.logo.src }}" alt="{{ site.logo.alt ?: site.name }}" width="{{ site.logo.width }}" height="{{ site.logo.height }}">
+  {% else %}
+    <img class="brand__mark" src="{{ asset('images/logo.svg') }}" alt="" width="64" height="64">
+    <span class="brand__wordmark">{{ site.name }}</span>
+  {% endif %}
+</{{ tag }}>

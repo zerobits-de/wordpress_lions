@@ -1,0 +1,31 @@
+# Environment / secrets
+.env
+*.local
+
+# Composer
+theme/vendor/
+theme/composer.phar
+
+# Build output
+build/
+dist/
+*.zip
+
+# Tooling caches
+theme/.phpcs-cache
+theme/.phpstan-cache/
+theme/.phpunit.result.cache
+.phpcs-cache
+
+# Node (only if ever introduced)
+node_modules/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# Docker runtime data that is not in named volumes
+docker/data/

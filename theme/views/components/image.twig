@@ -1,0 +1,32 @@
+{#
+  Responsive image. Accepts a Timber\Image (srcset generated from WordPress sizes)
+  or a plain { src, alt, width, height } array (theme placeholders).
+  Params: image, size (WP size name), sizes (sizes attribute), loading (lazy|eager), fetchpriority, class
+#}
+{% if image %}
+  {% set size = size|default('full') %}
+  {% set loading = loading|default('lazy') %}
+  {% if image.srcset is defined %}
+    <img
+      class="{{ class|default('')|e('html_attr') }}"
+      src="{{ image.src(size) }}"
+      {% if image.srcset(size) %}srcset="{{ image.srcset(size) }}" sizes="{{ sizes|default('100vw')|e('html_attr') }}"{% endif %}
+      alt="{{ image.alt|e('html_attr') }}"
+      width="{{ image.width }}"
+      height="{{ image.height }}"
+      loading="{{ loading }}"
+      decoding="async"
+      {% if fetchpriority|default('') %}fetchpriority="{{ fetchpriority }}"{% endif %}
+    >
+  {% else %}
+    <img
+      class="{{ class|default('')|e('html_attr') }}"
+      src="{{ image.src|esc_url }}"
+      alt="{{ image.alt|default('')|e('html_attr') }}"
+      {% if image.width|default(0) %}width="{{ image.width }}" height="{{ image.height }}"{% endif %}
+      loading="{{ loading }}"
+      decoding="async"
+      {% if fetchpriority|default('') %}fetchpriority="{{ fetchpriority }}"{% endif %}
+    >
+  {% endif %}
+{% endif %}

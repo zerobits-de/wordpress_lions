@@ -1,0 +1,18 @@
+/*
+Theme Name:        Lions International
+Theme URI:         https://github.com/your-org/lions-theme
+Author:            Lions International Web Team
+Author URI:        https://www.lionsclubs.org/
+Description:       Custom Timber/Twig theme for a Lions International website. Design language inspired by lionsclubs.org, implemented independently.
+Version:           0.1.0
+Requires at least: 6.6
+Tested up to:      7.1
+Requires PHP:      8.2
+License:           Proprietary
+License URI:       https://github.com/your-org/lions-theme/blob/main/LICENSE
+Text Domain:       lions-theme
+Tags:              custom-menu, featured-images, editor-style, accessibility-ready, block-styles
+
+All presentational styles live in assets/css/. This file only carries the
+theme header WordPress requires.
+*/

@@ -1,0 +1,27 @@
+{#
+  Page header band used by pages, archives, search and 404.
+  Params: title (string), description (HTML, optional), breadcrumbs (array, optional), image (Timber\Image, optional)
+#}
+<header class="page-header{% if image %} page-header--has-image{% endif %}">
+  {% if image %}
+    <div class="page-header__media">
+      {% include 'components/image.twig' with {
+        image: image,
+        size: 'lions-hero',
+        sizes: '100vw',
+        loading: 'eager',
+        fetchpriority: 'high',
+        class: 'page-header__image'
+      } only %}
+    </div>
+  {% endif %}
+  <div class="container page-header__inner">
+    {% if breadcrumbs %}
+      {% include 'components/breadcrumb.twig' with { items: breadcrumbs, class: image ? 'breadcrumb--light' : '' } only %}
+    {% endif %}
+    <h1 class="page-header__title">{{ title }}</h1>
+    {% if description %}
+      <div class="page-header__description">{{ description }}</div>
+    {% endif %}
+  </div>
+</header>

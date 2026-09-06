@@ -1,0 +1,23 @@
+includes:
+  - vendor/szepeviktor/phpstan-wordpress/extension.neon
+
+parameters:
+  level: 6
+  phpVersion: 80300
+  paths:
+    - src
+    - functions.php
+    - index.php
+    - front-page.php
+    - page.php
+    - single.php
+    - archive.php
+    - search.php
+    - 404.php
+  scanDirectories:
+    - vendor/timber/timber/src
+  tmpDir: .phpstan-cache
+  reportUnmatchedIgnoredErrors: false
+  ignoreErrors:
+    # Timber\PostCollectionInterface is not generic; element type is documented in prose.
+    - identifier: missingType.iterableValue

@@ -1,0 +1,18 @@
+{#
+  Breadcrumb trail. Params: items ([{title, url|null}]), class
+#}
+{% if items and items|length > 1 %}
+  <nav class="breadcrumb {{ class|default('') }}" aria-label="{{ __('Breadcrumb', 'lions-theme') }}">
+    <ol class="breadcrumb__list">
+      {% for item in items %}
+        <li class="breadcrumb__item">
+          {% if item.url %}
+            <a class="breadcrumb__link" href="{{ item.url|esc_url }}">{{ item.title }}</a>
+          {% else %}
+            <span aria-current="page">{{ item.title }}</span>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ol>
+  </nav>
+{% endif %}

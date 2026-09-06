@@ -1,0 +1,50 @@
+{% extends 'base.twig' %}
+
+{#
+  Homepage. Section data is prepared by FrontPageController / FrontPageContent.
+#}
+
+{% block content %}
+  {% include 'sections/hero.twig' with { hero: hero } only %}
+
+  {% include 'sections/feature.twig' with {
+    id: 'intro',
+    title: intro.title,
+    body: intro.body,
+    image: intro.image,
+    action: intro.action,
+    heading_level: 2
+  } only %}
+
+  {% include 'sections/cards.twig' with {
+    id: 'initiatives',
+    title: initiatives.title,
+    intro: initiatives.intro,
+    items: initiatives.items
+  } only %}
+
+  {% include 'sections/statistics.twig' with {
+    id: 'impact',
+    title: statistics.title,
+    items: statistics.items
+  } only %}
+
+  {% include 'sections/feature.twig' with {
+    id: 'get-involved',
+    title: feature.title,
+    body: feature.body,
+    image: feature.image,
+    action: feature.action,
+    reverse: feature.reverse,
+    heading_level: 2
+  } only %}
+
+  {% include 'sections/stories.twig' with {
+    id: 'stories',
+    title: __('Latest stories', 'lions-theme'),
+    posts: stories,
+    archive_url: fn('get_post_type_archive_link', 'post')
+  } only %}
+
+  {% include 'sections/cta.twig' with { cta: cta } only %}
+{% endblock %}

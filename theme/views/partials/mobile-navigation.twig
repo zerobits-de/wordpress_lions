@@ -1,0 +1,59 @@
+{#
+  Off-canvas navigation for small screens. Opened by the toggle in header.twig.
+  Primary items with children become accordions.
+#}
+<div class="mobile-nav" id="mobile-nav" hidden data-mobile-nav>
+  <div class="mobile-nav__scroll">
+    {% if menus.primary and menus.primary.items %}
+      <nav class="mobile-nav__primary" aria-label="{{ __('Mobile primary', 'lions-theme') }}">
+        <ul class="mobile-nav__list">
+          {% for item in menus.primary.items %}
+            <li class="mobile-nav__item{% if item.current %} is-current{% endif %}">
+              {% if item.children %}
+                <div class="mobile-nav__row">
+                  <a class="mobile-nav__link" href="{{ item.link }}"{% if item.current %} aria-current="page"{% endif %}>{{ item.title }}</a>
+                  <button class="mobile-nav__toggle" type="button" aria-expanded="false" aria-controls="mobile-submenu-{{ item.id }}" data-accordion-toggle>
+                    {{ icon('chevron-down') }}
+                    <span class="sr-only">{{ __('Show submenu for %s', 'lions-theme')|format(item.title) }}</span>
+                  </button>
+                </div>
+                <ul class="mobile-nav__submenu" id="mobile-submenu-{{ item.id }}" hidden>
+                  {% for child in item.children %}
+                    <li><a class="mobile-nav__sublink" href="{{ child.link }}"{% if child.current %} aria-current="page"{% endif %}>{{ child.title }}</a></li>
+                  {% endfor %}
+                </ul>
+              {% else %}
+                <a class="mobile-nav__link" href="{{ item.link }}"{% if item.current %} aria-current="page"{% endif %}{% if item.is_target_blank %} target="_blank" rel="noopener"{% endif %}>
+                  {{ item.title }}{% if item.is_external %} {{ icon('external', 'icon--sm') }}{% endif %}
+                </a>
+              {% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      </nav>
+    {% endif %}
+
+    <div class="mobile-nav__actions">
+      {% if site.cta.join.url %}
+        {% include 'components/button.twig' with { label: site.cta.join.label, url: site.cta.join.url, variant: 'primary', class: 'btn--block' } only %}
+      {% endif %}
+      {% if site.cta.donate.url %}
+        {% include 'components/button.twig' with { label: site.cta.donate.label, url: site.cta.donate.url, variant: 'accent', class: 'btn--block' } only %}
+      {% endif %}
+    </div>
+
+    {% if menus.utility and menus.utility.items %}
+      <nav class="mobile-nav__utility" aria-label="{{ __('Mobile utility', 'lions-theme') }}">
+        <ul class="mobile-nav__utility-list">
+          {% for item in menus.utility.items %}
+            <li><a href="{{ item.link }}"{% if item.is_target_blank %} target="_blank" rel="noopener"{% endif %}>{{ item.title }}</a></li>
+          {% endfor %}
+        </ul>
+      </nav>
+    {% endif %}
+
+    {% if site.social %}
+      {% include 'components/social-links.twig' with { links: site.social, class: 'mobile-nav__social' } only %}
+    {% endif %}
+  </div>
+</div>

@@ -1,0 +1,58 @@
+{#
+  Site header: utility bar, brand, primary navigation, calls to action, search, mobile toggle.
+  Behaviour (dropdowns, mobile panel, compact-on-scroll) lives in assets/js/main.js.
+#}
+<header class="site-header" id="site-header" data-header>
+  {% if menus.utility %}
+    <div class="utility-bar">
+      <div class="container utility-bar__inner">
+        {% include 'components/navigation.twig' with {
+          menu: menus.utility,
+          class: 'utility-nav',
+          aria_label: __('Utility', 'lions-theme'),
+          depth: 1
+        } only %}
+      </div>
+    </div>
+  {% endif %}
+
+  <div class="container site-header__inner">
+    <div class="site-header__brand">
+      {% include 'components/logo.twig' with { site: site } only %}
+    </div>
+
+    {% include 'components/navigation.twig' with {
+      menu: menus.primary,
+      class: 'primary-nav',
+      aria_label: __('Primary', 'lions-theme'),
+      depth: 2
+    } only %}
+
+    <div class="site-header__actions">
+      {% if site.cta.join.url %}
+        {% include 'components/button.twig' with { label: site.cta.join.label, url: site.cta.join.url, variant: 'primary', class: 'site-header__cta' } only %}
+      {% endif %}
+      {% if site.cta.donate.url %}
+        {% include 'components/button.twig' with { label: site.cta.donate.label, url: site.cta.donate.url, variant: 'accent', class: 'site-header__cta' } only %}
+      {% endif %}
+
+      <div class="site-search" data-search>
+        <button class="icon-button site-search__toggle" type="button" aria-expanded="false" aria-controls="site-search-panel" data-search-toggle>
+          {{ icon('search') }}
+          <span class="sr-only">{{ __('Search', 'lions-theme') }}</span>
+        </button>
+        <div class="site-search__panel" id="site-search-panel" hidden data-search-panel>
+          {% include 'components/search-form.twig' with { id: 'search-header', site: site } only %}
+        </div>
+      </div>
+
+      <button class="icon-button site-header__menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav" data-mobile-nav-toggle>
+        {{ icon('menu', 'icon--open') }}
+        {{ icon('close', 'icon--close') }}
+        <span class="sr-only">{{ __('Menu', 'lions-theme') }}</span>
+      </button>
+    </div>
+  </div>
+
+  {% include 'partials/mobile-navigation.twig' with { menus: menus, site: site } only %}
+</header>

@@ -1,0 +1,13 @@
+{#
+  Social profile icons. Params: links ([{network,label,url}]), class
+#}
+<ul class="social-links {{ class|default('') }}">
+  {% for link in links %}
+    <li class="social-links__item">
+      <a class="social-links__link" href="{{ link.url|esc_url }}" target="_blank" rel="noopener">
+        {{ icon(link.network) }}
+        <span class="sr-only">{{ link.label|e }}</span>
+      </a>
+    </li>
+  {% endfor %}
+</ul>

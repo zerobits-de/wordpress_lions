@@ -1,0 +1,60 @@
+{% extends 'base.twig' %}
+
+{% block content %}
+  <article class="story" id="post-{{ post.ID }}">
+    <header class="story__header">
+      <div class="container story__header-inner">
+        {% include 'components/breadcrumb.twig' with { items: breadcrumbs } only %}
+        {% set category = post.category %}
+        {% if category %}
+          <p class="story__eyebrow"><a href="{{ category.link }}">{{ category.title }}</a></p>
+        {% endif %}
+        <h1 class="story__title">{{ post.title }}</h1>
+        {% include 'components/post-meta.twig' with { post: post, show_author: true } only %}
+      </div>
+    </header>
+
+    {% if post.thumbnail %}
+      <figure class="story__media container">
+        {% include 'components/image.twig' with {
+          image: post.thumbnail,
+          size: 'lions-feature',
+          sizes: '(min-width: 1280px) 1180px, 100vw',
+          loading: 'eager',
+          fetchpriority: 'high',
+          class: 'story__image'
+        } only %}
+        {% if post.thumbnail.caption %}
+          <figcaption class="story__caption">{{ post.thumbnail.caption }}</figcaption>
+        {% endif %}
+      </figure>
+    {% endif %}
+
+    <div class="container">
+      <div class="panel prose story__body">
+        {{ post.content }}
+
+        {% set tags = post.tags %}
+        {% if tags %}
+          <footer class="story__tags">
+            <span class="story__tags-label">{{ __('Tags', 'lions-theme') }}:</span>
+            <ul class="tag-list">
+              {% for tag in tags %}
+                <li><a class="tag" href="{{ tag.link }}">{{ tag.title }}</a></li>
+              {% endfor %}
+            </ul>
+          </footer>
+        {% endif %}
+      </div>
+    </div>
+  </article>
+
+  {% if related and related|length %}
+    {% include 'sections/stories.twig' with {
+      id: 'related',
+      title: __('More stories', 'lions-theme'),
+      posts: related,
+      archive_url: fn('get_post_type_archive_link', 'post')
+    } only %}
+  {% endif %}
+{% endblock %}

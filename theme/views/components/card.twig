@@ -1,0 +1,21 @@
+{#
+  Content card with image, angled label band and title. Used for initiatives.
+  Params: title, text, url, image ({src,alt} or Timber\Image), label (band text), accent (blue|green|purple|yellow), heading_level (default 3)
+#}
+{% set tag = 'h' ~ heading_level|default(3) %}
+<article class="card card--{{ accent|default('blue') }}">
+  <div class="card__media">
+    {% include 'components/image.twig' with { image: image, size: 'lions-card', sizes: '(min-width: 1024px) 400px, (min-width: 640px) 50vw, 100vw', class: 'card__image' } only %}
+    {% if label|default('') %}
+      <span class="card__band" aria-hidden="true">{{ label|e }}</span>
+    {% endif %}
+  </div>
+  <div class="card__body">
+    <{{ tag }} class="card__title">
+      {% if url|default('') %}<a class="card__link" href="{{ url|esc_url }}">{{ title|e }}</a>{% else %}{{ title|e }}{% endif %}
+    </{{ tag }}>
+    {% if text|default('') %}
+      <p class="card__text">{{ text|e }}</p>
+    {% endif %}
+  </div>
+</article>

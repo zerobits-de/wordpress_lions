@@ -1,0 +1,27 @@
+{% extends 'base.twig' %}
+
+{% block content %}
+  {% include 'partials/page-header.twig' with {
+    title: __('We can’t find that page', 'lions-theme'),
+    description: '<p>' ~ __('The page may have moved or the address may be misspelled. Try a search, or start from one of the links below.', 'lions-theme') ~ '</p>'
+  } only %}
+
+  <div class="container">
+    <div class="panel panel--narrow not-found">
+      {% include 'components/search-form.twig' with { id: 'search-404' } only %}
+      <div class="not-found__actions">
+        {% include 'components/button.twig' with { label: __('Back to the homepage', 'lions-theme'), url: site.url, variant: 'primary' } only %}
+        {% include 'components/button.twig' with { label: __('Browse stories', 'lions-theme'), url: fn('get_post_type_archive_link', 'post'), variant: 'outline' } only %}
+      </div>
+    </div>
+  </div>
+
+  {% if recent and recent|length %}
+    {% include 'sections/stories.twig' with {
+      id: 'recent',
+      title: __('Recent stories', 'lions-theme'),
+      posts: recent,
+      archive_url: fn('get_post_type_archive_link', 'post')
+    } only %}
+  {% endif %}
+{% endblock %}

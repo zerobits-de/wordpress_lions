@@ -1,0 +1,38 @@
+{#
+  Base layout. Every page template extends this file.
+
+  Blocks:
+    - head_extra   extra <head> markup (rare)
+    - header       site header (override to remove/replace)
+    - content      page content (required)
+    - footer       site footer
+#}
+<!doctype html>
+<html {{ site.language_attributes }}>
+<head>
+  <meta charset="{{ site.charset }}">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0a3dab">
+  {% block head_extra %}{% endblock %}
+  {{ function('wp_head') }}
+</head>
+<body class="{{ body_class }}">
+  {{ function('wp_body_open') }}
+
+  <a class="skip-link" href="#main">{{ __('Skip to main content', 'lions-theme') }}</a>
+
+  {% block header %}
+    {% include 'partials/header.twig' %}
+  {% endblock %}
+
+  <main id="main" class="site-main" tabindex="-1">
+    {% block content %}{% endblock %}
+  </main>
+
+  {% block footer %}
+    {% include 'partials/footer.twig' %}
+  {% endblock %}
+
+  {{ function('wp_footer') }}
+</body>
+</html>

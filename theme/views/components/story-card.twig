@@ -1,0 +1,23 @@
+{#
+  Card for a post (story). Falls back to the placeholder illustration when the post has no featured image.
+  Params: post (Timber\Post), heading_level (default 3)
+#}
+{% set tag = 'h' ~ heading_level|default(3) %}
+{% set category = post.category %}
+<article class="card card--story">
+  <div class="card__media">
+    {% if post.thumbnail %}
+      {% include 'components/image.twig' with { image: post.thumbnail, size: 'lions-card', sizes: '(min-width: 1024px) 400px, (min-width: 640px) 50vw, 100vw', class: 'card__image' } only %}
+    {% else %}
+      {% include 'components/image.twig' with { image: { src: asset('images/placeholders/story.svg'), alt: '' }, class: 'card__image' } only %}
+    {% endif %}
+    {% if category %}
+      <span class="card__band" aria-hidden="true">{{ category.title }}</span>
+    {% endif %}
+  </div>
+  <div class="card__body">
+    <{{ tag }} class="card__title"><a class="card__link" href="{{ post.link }}">{{ post.title }}</a></{{ tag }}>
+    <p class="card__text">{{ post.excerpt({ words: 22, read_more: false }) }}</p>
+    {% include 'components/post-meta.twig' with { post: post, class: 'card__meta' } only %}
+  </div>
+</article>

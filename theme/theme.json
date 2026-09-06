@@ -1,0 +1,48 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/theme.json",
+  "version": 3,
+  "settings": {
+    "appearanceTools": false,
+    "layout": {
+      "contentSize": "48rem",
+      "wideSize": "72rem"
+    },
+    "color": {
+      "custom": false,
+      "customGradient": false,
+      "defaultPalette": false,
+      "defaultGradients": false,
+      "palette": [
+        { "slug": "primary", "color": "#0a3dab", "name": "Lions Blue" },
+        { "slug": "primary-dark", "color": "#082e80", "name": "Lions Blue (dark)" },
+        { "slug": "navy", "color": "#0d2240", "name": "Navy" },
+        { "slug": "accent", "color": "#f9c910", "name": "Lions Yellow" },
+        { "slug": "purple", "color": "#8b2994", "name": "Purple" },
+        { "slug": "green", "color": "#3f9d5a", "name": "Green" },
+        { "slug": "surface", "color": "#ffffff", "name": "White" },
+        { "slug": "background", "color": "#f6f6f6", "name": "Light Gray" },
+        { "slug": "text", "color": "#1a1a1a", "name": "Text" },
+        { "slug": "muted", "color": "#595959", "name": "Muted" }
+      ]
+    },
+    "typography": {
+      "customFontSize": false,
+      "fontFamilies": [
+        {
+          "slug": "sans",
+          "name": "Helvetica Neue / System Sans",
+          "fontFamily": "\"Helvetica Neue\", Helvetica, Arial, system-ui, sans-serif"
+        }
+      ],
+      "fontSizes": [
+        { "slug": "small", "size": "0.875rem", "name": "Small" },
+        { "slug": "medium", "size": "1rem", "name": "Medium" },
+        { "slug": "large", "size": "1.25rem", "name": "Large" },
+        { "slug": "x-large", "size": "1.625rem", "name": "Extra Large" }
+      ]
+    },
+    "spacing": {
+      "units": ["px", "rem", "%"]
+    }
+  }
+}

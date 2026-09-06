@@ -1,0 +1,23 @@
+{% extends 'base.twig' %}
+
+{% block content %}
+  {% include 'partials/page-header.twig' with {
+    title: post.title,
+    breadcrumbs: breadcrumbs,
+    image: post.thumbnail
+  } only %}
+
+  <div class="container">
+    <div class="page-layout{% if subpages %} page-layout--with-aside{% endif %}">
+      <article class="panel prose" id="post-{{ post.ID }}">
+        {{ post.content }}
+      </article>
+
+      {% if subpages %}
+        <aside class="page-layout__aside" aria-labelledby="subpages-title">
+          {% include 'components/subnav.twig' with { subpages: subpages, current_id: post.ID } only %}
+        </aside>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}

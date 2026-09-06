@@ -1,0 +1,21 @@
+{#
+  Photo lockup: image on one side (angled edge on desktop), heading with accent rule, body copy, button.
+  Params: id, title, body (HTML), image, action {label,url,variant}, reverse (bool), heading_level (2|3)
+#}
+{% set tag = 'h' ~ heading_level|default(2) %}
+<section class="section" id="{{ id|default('')|e('html_attr') }}" aria-labelledby="{{ id|default('feature') }}-title">
+  <div class="container">
+    <div class="feature panel panel--flush{% if reverse|default(false) %} feature--reverse{% endif %}">
+      <div class="feature__media">
+        {% include 'components/image.twig' with { image: image, size: 'lions-feature', sizes: '(min-width: 1024px) 50vw, 100vw', class: 'feature__image' } only %}
+      </div>
+      <div class="feature__body">
+        <{{ tag }} class="section-title" id="{{ id|default('feature') }}-title">{{ title|e }}</{{ tag }}>
+        <div class="feature__text prose">{{ body }}</div>
+        {% if action and action.url %}
+          {% include 'components/button.twig' with { label: action.label, url: action.url, variant: action.variant|default('primary') } only %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>

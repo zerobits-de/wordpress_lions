@@ -1,0 +1,10 @@
+{#
+  Date (and optionally author) for a post. Params: post, show_author, class
+#}
+<p class="post-meta {{ class|default('') }}">
+  <time datetime="{{ post.date('c') }}">{{ post.date }}</time>
+  {% if show_author|default(false) and post.author %}
+    <span class="post-meta__separator" aria-hidden="true">·</span>
+    <span>{{ __('By %s', 'lions-theme')|format(post.author.name) }}</span>
+  {% endif %}
+</p>

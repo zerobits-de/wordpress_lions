@@ -1,0 +1,336 @@
+# Copyright (C) 2026 Lions International Web Team
+# This file is distributed under the Proprietary.
+msgid ""
+msgstr ""
+"Project-Id-Version: Lions International Theme 0.1.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/theme/lions-theme\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-09-06T09:27:53+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: lions-theme\n"
+
+#. Theme Name of the theme
+#: style.css
+#: src/Functions/Customizer.php:85
+#: src/Functions/Customizer.php:142
+msgid "Lions International"
+msgstr ""
+
+#. Theme URI of the theme
+#: style.css
+msgid "https://github.com/your-org/lions-theme"
+msgstr ""
+
+#. Description of the theme
+#: style.css
+msgid "Custom Timber/Twig theme for a Lions International website. Design language inspired by lionsclubs.org, implemented independently."
+msgstr ""
+
+#. Author of the theme
+#: style.css
+msgid "Lions International Web Team"
+msgstr ""
+
+#. Author URI of the theme
+#: style.css
+msgid "https://www.lionsclubs.org/"
+msgstr ""
+
+#. translators: %s: composer command
+#: functions.php:24
+#, php-format
+msgid "The Lions International theme is missing its Composer dependencies. Run %s inside the theme directory (or use \"make composer\" in the project root)."
+msgstr ""
+
+#: functions.php:41
+msgid "Theme dependencies missing"
+msgstr ""
+
+#: src/Components/Breadcrumbs.php:28
+msgid "Home"
+msgstr ""
+
+#: src/Content/FrontPageContent.php:34
+msgid "Together, we serve where we are needed most."
+msgstr ""
+
+#: src/Content/FrontPageContent.php:35
+msgid "Small acts. Global reach."
+msgstr ""
+
+#: src/Content/FrontPageContent.php:42
+msgid "Become a member"
+msgstr ""
+
+#: src/Content/FrontPageContent.php:47
+msgid "See our impact"
+msgstr ""
+
+#: src/Content/FrontPageContent.php:69
+msgid "Lions are neighbours, colleagues and friends who decided that the best answer to a local need is to roll up their sleeves. Clubs in more than two hundred countries and geographic areas bring people together around one simple idea: communities improve when people serve them."
+msgstr ""
+
+#: src/Content/FrontPageContent.php:70
+msgid "From sight screenings and food drives to youth programmes and disaster response, every project starts with someone who cares. Our foundation amplifies that care with grants that turn local ideas into lasting change."
+msgstr ""
+
+#: src/Content/FrontPageContent.php:74
+msgid "United in service"
+msgstr ""
+
+#: src/Content/FrontPageContent.php:81
+msgid "About Lions"
+msgstr ""
+
+#: src/Content/FrontPageContent.php:96
+msgid "Vision"
+msgstr ""
+
+#: src/Content/FrontPageContent.php:97
+msgid "Preventing avoidable blindness and supporting people with low vision through screenings, surgeries and equipment."
+msgstr ""
+
+#: src/Content/FrontPageContent.php:102
+msgid "Youth"
+msgstr ""
+
+#: src/Content/FrontPageContent.php:103
+msgid "Leadership programmes, scholarships and Leo clubs that give young people a way to lead through service."
+msgstr ""
+
+#: src/Content/FrontPageContent.php:108
+msgid "Hunger"
+msgstr ""
+
+#: src/Content/FrontPageContent.php:109
+msgid "Food banks, school meals and community gardens that make sure no neighbour goes without a meal."
+msgstr ""
+
+#: src/Content/FrontPageContent.php:114
+msgid "Environment"
+msgstr ""
+
+#: src/Content/FrontPageContent.php:115
+msgid "Tree planting, clean-up days and conservation projects that protect the places we share."
+msgstr ""
+
+#: src/Content/FrontPageContent.php:128
+msgid "Learn more"
+msgstr ""
+
+#: src/Content/FrontPageContent.php:133
+msgid "Where we focus"
+msgstr ""
+
+#: src/Content/FrontPageContent.php:134
+msgid "Our global causes give every club a shared direction while leaving room for local priorities."
+msgstr ""
+
+#: src/Content/FrontPageContent.php:146
+msgid "Service at scale"
+msgstr ""
+
+#: src/Content/FrontPageContent.php:150
+msgid "members worldwide"
+msgstr ""
+
+#: src/Content/FrontPageContent.php:155
+msgid "local clubs"
+msgstr ""
+
+#: src/Content/FrontPageContent.php:160
+msgid "countries and areas"
+msgstr ""
+
+#: src/Content/FrontPageContent.php:165
+msgid "years of service"
+msgstr ""
+
+#: src/Content/FrontPageContent.php:179
+msgid "Ways to get involved"
+msgstr ""
+
+#: src/Content/FrontPageContent.php:180
+msgid "Join a club near you, volunteer for a single project, or support the foundation. Whatever your time and talents, there is a place for you."
+msgstr ""
+
+#: src/Content/FrontPageContent.php:187
+msgid "Get involved"
+msgstr ""
+
+#: src/Content/FrontPageContent.php:201
+msgid "Ready to make a difference?"
+msgstr ""
+
+#: src/Content/FrontPageContent.php:202
+msgid "Find a club, meet your neighbours and start serving this month."
+msgstr ""
+
+#: src/Content/FrontPageContent.php:205
+msgid "Find a club"
+msgstr ""
+
+#: src/Content/FrontPageContent.php:210
+#: src/Site.php:37
+msgid "Donate"
+msgstr ""
+
+#: src/Controllers/IndexController.php:27
+msgid "Stories"
+msgstr ""
+
+#: src/Functions/Customizer.php:33
+msgid "Join URL"
+msgstr ""
+
+#: src/Functions/Customizer.php:40
+msgid "Donate URL"
+msgstr ""
+
+#: src/Functions/Customizer.php:82
+msgid "Organisation name"
+msgstr ""
+
+#: src/Functions/Customizer.php:89
+msgid "Postal address (one line per row)"
+msgstr ""
+
+#: src/Functions/Customizer.php:96
+msgid "Phone"
+msgstr ""
+
+#: src/Functions/Customizer.php:103
+msgid "Email"
+msgstr ""
+
+#: src/Functions/Customizer.php:110
+msgid "Footer legal text"
+msgstr ""
+
+#: src/Functions/Customizer.php:113
+msgid "Placeholder legal notice. Replace with the organisation's registered details and charitable status."
+msgstr ""
+
+#: src/Functions/Customizer.php:148
+msgid "Calls to action"
+msgstr ""
+
+#: src/Functions/Customizer.php:149
+msgid "Social profiles"
+msgstr ""
+
+#: src/Functions/Customizer.php:150
+msgid "Contact & legal"
+msgstr ""
+
+#: src/Functions/Menus.php:40
+msgid "Primary navigation"
+msgstr ""
+
+#: src/Functions/Menus.php:41
+msgid "Utility bar (top links)"
+msgstr ""
+
+#: src/Functions/Menus.php:42
+msgid "Footer column 1"
+msgstr ""
+
+#: src/Functions/Menus.php:43
+msgid "Footer column 2"
+msgstr ""
+
+#: src/Functions/Menus.php:44
+msgid "Footer column 3"
+msgstr ""
+
+#: src/Functions/Menus.php:45
+msgid "Legal links (footer bottom)"
+msgstr ""
+
+#: src/Functions/Security.php:31
+msgid "The credentials you entered are not valid."
+msgstr ""
+
+#: src/Site.php:33
+msgid "Join"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Lions Blue"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Lions Blue (dark)"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Navy"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Lions Yellow"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Purple"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Green"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "White"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Light Gray"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Text"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Muted"
+msgstr ""
+
+#: theme.json
+msgctxt "Font family name"
+msgid "Helvetica Neue / System Sans"
+msgstr ""
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Small"
+msgstr ""
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Medium"
+msgstr ""
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Large"
+msgstr ""
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Extra Large"
+msgstr ""

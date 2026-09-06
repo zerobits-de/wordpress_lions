@@ -1,0 +1,13 @@
+{#
+  Section navigation for hierarchical pages. Params: subpages ({title,url,pages}), current_id
+#}
+<nav class="subnav" aria-labelledby="subpages-title">
+  <h2 class="subnav__title" id="subpages-title"><a href="{{ subpages.url }}">{{ subpages.title }}</a></h2>
+  <ul class="subnav__list">
+    {% for page in subpages.pages %}
+      <li class="subnav__item{% if page.ID == current_id %} is-current{% endif %}">
+        <a class="subnav__link" href="{{ page.link }}"{% if page.ID == current_id %} aria-current="page"{% endif %}>{{ page.title }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+</nav>

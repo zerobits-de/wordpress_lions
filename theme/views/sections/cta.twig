@@ -1,0 +1,18 @@
+{#
+  Full-width navy call to action. Params: cta {title, text, actions[]}
+#}
+<section class="cta-band" aria-labelledby="cta-title">
+  <div class="container cta-band__inner">
+    <div class="cta-band__copy">
+      <h2 class="cta-band__title" id="cta-title">{{ cta.title|e }}</h2>
+      {% if cta.text %}<p class="cta-band__text">{{ cta.text|e }}</p>{% endif %}
+    </div>
+    {% if cta.actions %}
+      <div class="cta-band__actions">
+        {% for action in cta.actions %}
+          {% include 'components/button.twig' with { label: action.label, url: action.url, variant: action.variant|default('accent'), size: 'lg' } only %}
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</section>

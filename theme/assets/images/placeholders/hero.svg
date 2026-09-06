@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080" role="img" aria-label="Placeholder image">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0a3dab"/>
+      <stop offset="1" stop-color="#0d2240"/>
+    </linearGradient>
+    <pattern id="dots" width="28" height="28" patternUnits="userSpaceOnUse">
+      <circle cx="4" cy="4" r="1.6" fill="#ffffff" fill-opacity="0.18"/>
+    </pattern>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#g)"/>
+  <rect width="1920" height="1080" fill="url(#dots)"/>
+  <circle cx="1440" cy="360" r="360" fill="#ffffff" fill-opacity="0.08"/>
+  <circle cx="384" cy="864" r="270" fill="#f9c910" fill-opacity="0.35"/>
+  <polygon points="0,1080 768,1080 1152,594 0,756" fill="#f9c910" fill-opacity="0.25"/>
+  <polygon points="1920,0 1920,486 1190,0" fill="#ffffff" fill-opacity="0.06"/>
+</svg>

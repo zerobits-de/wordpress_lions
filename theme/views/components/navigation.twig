@@ -1,0 +1,33 @@
+{#
+  Renders a Timber\Menu as an accessible <nav>. Second-level items become
+  dropdowns with a toggle button (keyboard/touch) - see main.js.
+  Params: menu (Timber\Menu|null), class (BEM block), aria_label, depth (1 = flat, 2 = with submenus)
+#}
+{% if menu and menu.items %}
+  {% set depth = depth|default(2) %}
+  <nav class="{{ class }}" aria-label="{{ aria_label|e('html_attr') }}">
+    <ul class="{{ class }}__list">
+      {% for item in menu.items %}
+        {% set has_children = depth > 1 and item.children|length > 0 %}
+        <li class="{{ class }}__item{% if has_children %} has-children{% endif %}{% if item.current %} is-current{% endif %}{% if item.current_item_ancestor or item.current_item_parent %} is-ancestor{% endif %}">
+          <a class="{{ class }}__link" href="{{ item.link }}"{% if item.current %} aria-current="page"{% endif %}{% if item.is_target_blank %} target="_blank" rel="noopener"{% endif %}>
+            {{ item.title }}{% if item.is_external %} {{ icon('external', 'icon--sm') }}{% endif %}
+          </a>
+          {% if has_children %}
+            <button class="{{ class }}__toggle" type="button" aria-expanded="false" aria-controls="{{ class }}-submenu-{{ item.id }}" data-dropdown-toggle>
+              {{ icon('chevron-down') }}
+              <span class="sr-only">{{ __('Show submenu for %s', 'lions-theme')|format(item.title) }}</span>
+            </button>
+            <ul class="{{ class }}__submenu" id="{{ class }}-submenu-{{ item.id }}">
+              {% for child in item.children %}
+                <li class="{{ class }}__subitem{% if child.current %} is-current{% endif %}">
+                  <a class="{{ class }}__sublink" href="{{ child.link }}"{% if child.current %} aria-current="page"{% endif %}{% if child.is_target_blank %} target="_blank" rel="noopener"{% endif %}>{{ child.title }}</a>
+                </li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  </nav>
+{% endif %}

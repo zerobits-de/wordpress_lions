@@ -1,0 +1,22 @@
+{#
+  Button / link styled as a button.
+  Params:
+    label     (string, required)
+    url       (string) renders <a>; omit for <button>
+    variant   primary | accent | purple | outline | outline-light | link   (default: primary)
+    size      sm | lg (optional)
+    class     extra classes
+    icon      icon name appended after the label (optional)
+    external  bool - open in new tab
+    type      button type when no url (default: button)
+#}
+{% set classes = ['btn', 'btn--' ~ variant|default('primary'), size is defined and size ? 'btn--' ~ size : '', class|default('')]|join(' ')|trim %}
+{% if url is defined and url %}
+  <a class="{{ classes }}" href="{{ url|esc_url }}"{% if external|default(false) %} target="_blank" rel="noopener"{% endif %}>
+    <span class="btn__label">{{ label|e }}</span>{% if icon|default('') %}{{ icon(icon) }}{% endif %}
+  </a>
+{% else %}
+  <button class="{{ classes }}" type="{{ type|default('button')|e('html_attr') }}">
+    <span class="btn__label">{{ label|e }}</span>{% if icon|default('') %}{{ icon(icon) }}{% endif %}
+  </button>
+{% endif %}

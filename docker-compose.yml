@@ -1,0 +1,71 @@
+# Local development environment for the Lions International WordPress theme.
+#
+#   cp .env.example .env
+#   make up        # build + start
+#   make install   # complete the WordPress installation with WP-CLI
+#
+# WordPress: http://localhost:${WORDPRESS_PORT:-8080}
+# The theme directory (./theme) is bind-mounted into the container, so edits
+# are visible on the next browser refresh. No copying is required.
+
+name: lions-wordpress
+
+services:
+  db:
+    image: mysql:8.4
+    command: --mysql-native-password=ON
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-wordpress}
+      MYSQL_USER: ${MYSQL_USER:-wordpress}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-wordpress}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root}
+    volumes:
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-u", "root", "-p${MYSQL_ROOT_PASSWORD:-root}"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    # Intentionally no `ports:` entry - MySQL is only reachable from inside the
+    # Docker network. Use `make db-shell` if you need a MySQL prompt.
+
+  wordpress:
+    build:
+      context: ./docker/wordpress
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "${WORDPRESS_PORT:-8080}:80"
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_NAME: ${MYSQL_DATABASE:-wordpress}
+      WORDPRESS_DB_USER: ${MYSQL_USER:-wordpress}
+      WORDPRESS_DB_PASSWORD: ${MYSQL_PASSWORD:-wordpress}
+      WORDPRESS_TABLE_PREFIX: ${WORDPRESS_TABLE_PREFIX:-wp_}
+      WORDPRESS_DEBUG: ${WORDPRESS_DEBUG:-1}
+      WORDPRESS_CONFIG_EXTRA: |
+        define( 'WP_ENVIRONMENT_TYPE', 'development' );
+        define( 'WP_DEBUG_LOG', true );
+        define( 'WP_DEBUG_DISPLAY', false );
+        define( 'SCRIPT_DEBUG', true );
+        define( 'DISALLOW_FILE_EDIT', true );
+        define( 'WP_HOME', 'http://localhost:${WORDPRESS_PORT:-8080}' );
+        define( 'WP_SITEURL', 'http://localhost:${WORDPRESS_PORT:-8080}' );
+      # Consumed by bin/wp-install.sh (make install)
+      WORDPRESS_PORT: ${WORDPRESS_PORT:-8080}
+      WORDPRESS_SITE_TITLE: ${WORDPRESS_SITE_TITLE:-Lions International}
+      WORDPRESS_ADMIN_USER: ${WORDPRESS_ADMIN_USER:-admin}
+      WORDPRESS_ADMIN_PASSWORD: ${WORDPRESS_ADMIN_PASSWORD:-admin}
+      WORDPRESS_ADMIN_EMAIL: ${WORDPRESS_ADMIN_EMAIL:-admin@example.com}
+      WORDPRESS_LOCALE: ${WORDPRESS_LOCALE:-en_US}
+    volumes:
+      - wp_data:/var/www/html
+      - ./theme:/var/www/html/wp-content/themes/lions-theme
+      - ./bin:/opt/lions/bin:ro
+
+volumes:
+  db_data:
+  wp_data:

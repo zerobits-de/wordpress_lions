@@ -1,0 +1,12 @@
+{#
+  Search form. Params: id (unique), query (prefill), site
+#}
+{% set id = id|default('search') %}
+<form class="search-form" role="search" method="get" action="{{ fn('home_url', '/') }}">
+  <label class="sr-only" for="{{ id }}-input">{{ __('Search the site', 'lions-theme') }}</label>
+  <input class="search-form__input" id="{{ id }}-input" type="search" name="s" value="{{ query|default(fn('get_search_query'))|e('html_attr') }}" placeholder="{{ __('Search…', 'lions-theme') }}" autocomplete="off">
+  <button class="search-form__submit btn btn--primary" type="submit">
+    {{ icon('search') }}
+    <span class="sr-only">{{ __('Search', 'lions-theme') }}</span>
+  </button>
+</form>

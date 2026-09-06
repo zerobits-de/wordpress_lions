@@ -1,0 +1,156 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+# PHP version is the project standard - keep in sync with docker/wordpress/Dockerfile.
+env:
+  PHP_VERSION: "8.3"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: PHP, coding standards, Twig, structure
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ env.PHP_VERSION }}
+          coverage: none
+          tools: composer:v2
+
+      - name: Validate composer.json
+        working-directory: theme
+        run: composer validate --strict --no-check-publish
+
+      - name: Cache Composer packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.composer/cache
+          key: composer-${{ runner.os }}-${{ hashFiles('theme/composer.lock') }}
+          restore-keys: composer-${{ runner.os }}-
+
+      - name: Install dependencies
+        working-directory: theme
+        run: composer install --no-interaction --no-progress --prefer-dist
+
+      - name: PHP syntax
+        working-directory: theme
+        run: composer run lint:php
+
+      - name: PHP coding standards (WordPress)
+        working-directory: theme
+        run: composer run lint:phpcs
+
+      - name: PHPStan
+        working-directory: theme
+        run: composer run analyse
+
+      - name: Twig syntax
+        run: php bin/twig-lint.php theme
+
+      - name: Theme structure
+        run: sh bin/validate-theme.sh theme
+
+  docker:
+    name: Docker Compose smoke test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Prepare environment
+        run: cp .env.example .env
+
+      - name: Validate compose file
+        run: docker compose config -q
+
+      - name: Build and start
+        run: docker compose up -d --build
+
+      - name: Install theme dependencies
+        run: docker compose exec -T -w /var/www/html/wp-content/themes/lions-theme wordpress composer install --no-interaction --no-progress --no-dev
+
+      - name: Wait for WordPress
+        run: |
+          for i in $(seq 1 60); do
+            code=$(curl -s -o /dev/null -w '%{http_code}' http://localhost:8080/ || true)
+            if [ "$code" != "000" ]; then echo "HTTP $code"; exit 0; fi
+            sleep 2
+          done
+          echo "WordPress did not start"; exit 1
+
+      - name: Install WordPress and seed content
+        run: docker compose exec -T wordpress bash /opt/lions/bin/wp-install.sh
+
+      - name: Smoke test pages
+        run: |
+          set -e
+          check() {
+            url="$1"; expect="$2"; needle="$3"
+            body=$(curl -s -w '\n%{http_code}' "$url")
+            code=$(echo "$body" | tail -n1)
+            html=$(echo "$body" | sed '$d')
+            [ "$code" = "$expect" ] || { echo "FAIL $url -> HTTP $code (expected $expect)"; echo "$html" | head -50; exit 1; }
+            echo "$html" | grep -q "$needle" || { echo "FAIL $url missing '$needle'"; exit 1; }
+            echo "$html" | grep -qi "fatal error\|Warning:" && { echo "FAIL $url contains PHP errors"; exit 1; }
+            echo "ok  $url ($code)"
+          }
+          check http://localhost:8080/            200 'class="site-header"'
+          check http://localhost:8080/            200 'class="hero'
+          check http://localhost:8080/about-us/   200 'class="page-header'
+          check http://localhost:8080/stories/    200 'card-grid'
+          check http://localhost:8080/?s=club     200 'search-form'
+          check http://localhost:8080/no-such-page-xyz/ 404 'not-found'
+
+      - name: Debug log on failure
+        if: failure()
+        run: |
+          docker compose ps
+          docker compose logs --tail=100 wordpress
+          docker compose exec -T wordpress sh -c 'cat /var/www/html/wp-content/debug.log 2>/dev/null | tail -100 || true'
+
+      - name: Tear down
+        if: always()
+        run: docker compose down -v
+
+  build:
+    name: Production package
+    runs-on: ubuntu-latest
+    needs: validate
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ env.PHP_VERSION }}
+          coverage: none
+          tools: composer:v2
+
+      - name: Build lions-theme.zip
+        run: bash bin/build.sh
+
+      - name: Inspect package
+        run: |
+          unzip -l build/lions-theme.zip | head -40
+          unzip -l build/lions-theme.zip | grep -q 'lions-theme/style.css'
+          unzip -l build/lions-theme.zip | grep -q 'lions-theme/vendor/autoload.php'
+          ! unzip -l build/lions-theme.zip | grep -q 'phpstan'
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: lions-theme
+          path: build/lions-theme.zip
+          retention-days: 14

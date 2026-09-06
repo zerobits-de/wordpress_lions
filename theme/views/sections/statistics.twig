@@ -1,0 +1,15 @@
+{#
+  Impact figures. Params: id, title, items[{value,label,tone}]
+#}
+<section class="section" id="{{ id|default('')|e('html_attr') }}" aria-labelledby="{{ id|default('statistics') }}-title">
+  <div class="container">
+    <div class="panel">
+      <h2 class="section-title" id="{{ id|default('statistics') }}-title">{{ title|e }}</h2>
+      <div class="stat-grid">
+        {% for item in items %}
+          {% include 'components/stat.twig' with item only %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>

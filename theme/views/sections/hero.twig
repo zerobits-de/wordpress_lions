@@ -1,0 +1,21 @@
+{#
+  Full-bleed photographic hero. Params: hero {title, subtitle, image, actions[]}
+#}
+<section class="hero" aria-labelledby="hero-title">
+  <div class="hero__media">
+    {% include 'components/image.twig' with { image: hero.image, size: 'lions-hero', sizes: '100vw', loading: 'eager', fetchpriority: 'high', class: 'hero__image' } only %}
+  </div>
+  <div class="container hero__content">
+    <h1 class="hero__title" id="hero-title">{{ hero.title|e }}</h1>
+    {% if hero.subtitle %}
+      <p class="hero__subtitle">{{ hero.subtitle|e }}</p>
+    {% endif %}
+    {% if hero.actions %}
+      <div class="hero__actions">
+        {% for action in hero.actions %}
+          {% include 'components/button.twig' with { label: action.label, url: action.url, variant: action.variant|default('accent'), size: 'lg' } only %}
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</section>

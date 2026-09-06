@@ -1,0 +1,22 @@
+{#
+  Latest / related posts. Params: id, title, posts, archive_url
+#}
+{% if posts and posts|length %}
+  <section class="section" id="{{ id|default('')|e('html_attr') }}" aria-labelledby="{{ id|default('stories') }}-title">
+    <div class="container">
+      <div class="panel">
+        <div class="section-header section-header--row">
+          <h2 class="section-title" id="{{ id|default('stories') }}-title">{{ title|e }}</h2>
+          {% if archive_url|default('') %}
+            {% include 'components/button.twig' with { label: __('All stories', 'lions-theme'), url: archive_url, variant: 'link', icon: 'arrow-right' } only %}
+          {% endif %}
+        </div>
+        <div class="card-grid card-grid--3">
+          {% for post in posts %}
+            {% include 'components/story-card.twig' with { post: post } only %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </section>
+{% endif %}

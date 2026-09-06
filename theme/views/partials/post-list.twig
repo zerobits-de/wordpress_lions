@@ -1,0 +1,17 @@
+{#
+  Grid of story cards with pagination. Params: posts (PostCollection), empty_message (optional)
+#}
+<div class="post-list">
+{% if posts and posts|length %}
+  <div class="card-grid card-grid--3">
+    {% for post in posts %}
+      {% include 'components/story-card.twig' with { post: post } only %}
+    {% endfor %}
+  </div>
+  {% include 'components/pagination.twig' with { pagination: posts.pagination({ mid_size: 1 }) } only %}
+{% else %}
+  <div class="panel panel--narrow">
+    <p>{{ empty_message|default(__('There is nothing here yet. Please check back soon.', 'lions-theme')) }}</p>
+  </div>
+{% endif %}
+</div>

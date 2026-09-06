@@ -1,0 +1,21 @@
+{% extends 'base.twig' %}
+
+{% block content %}
+  {% include 'partials/page-header.twig' with {
+    title: search.query ? __('Search results for “%s”', 'lions-theme')|format(search.query) : __('Search', 'lions-theme'),
+    description: search.query ? '<p>' ~ _n('%d result', '%d results', search.total, 'lions-theme')|format(search.total) ~ '</p>' : ''
+  } only %}
+
+  <div class="container">
+    <div class="panel panel--narrow search-panel">
+      {% include 'components/search-form.twig' with { query: search.query, id: 'search-page' } only %}
+    </div>
+
+    {% if search.query %}
+      {% include 'partials/post-list.twig' with {
+        posts: posts,
+        empty_message: __('Nothing matched your search. Try different words or browse our stories.', 'lions-theme')
+      } only %}
+    {% endif %}
+  </div>
+{% endblock %}

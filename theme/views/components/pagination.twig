@@ -1,0 +1,26 @@
+{#
+  Archive pagination. Params: pagination (Timber\Pagination)
+#}
+{% if pagination and pagination.pages|length > 1 %}
+  <nav class="pagination" aria-label="{{ __('Pagination', 'lions-theme') }}">
+    <ul class="pagination__list">
+      {% if pagination.prev %}
+        <li><a class="pagination__link pagination__link--prev" href="{{ pagination.prev.link }}">{{ icon('chevron-left') }} <span>{{ __('Previous', 'lions-theme') }}</span></a></li>
+      {% endif %}
+      {% for page in pagination.pages %}
+        <li>
+          {% if page.link %}
+            <a class="pagination__link{% if page.current %} is-current{% endif %}" href="{{ page.link }}"{% if page.current %} aria-current="page"{% endif %}>{{ page.title }}</a>
+          {% elseif page.current %}
+            <span class="pagination__link is-current" aria-current="page">{{ page.title }}</span>
+          {% else %}
+            <span class="pagination__dots">{{ page.title }}</span>
+          {% endif %}
+        </li>
+      {% endfor %}
+      {% if pagination.next %}
+        <li><a class="pagination__link pagination__link--next" href="{{ pagination.next.link }}"><span>{{ __('Next', 'lions-theme') }}</span> {{ icon('chevron-right') }}</a></li>
+      {% endif %}
+    </ul>
+  </nav>
+{% endif %}

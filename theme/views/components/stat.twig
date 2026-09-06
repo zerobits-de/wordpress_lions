@@ -1,0 +1,7 @@
+{#
+  Statistic tile. Params: value, label, tone (navy|purple|blue|gradient)
+#}
+<div class="stat stat--{{ tone|default('navy') }}">
+  <span class="stat__value">{{ value|e }}</span>
+  <span class="stat__label">{{ label|e }}</span>
+</div>

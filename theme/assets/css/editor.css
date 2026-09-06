@@ -1,0 +1,25 @@
+/* ==========================================================================
+   Block editor styles. Loaded with tokens.css via add_editor_style(); WordPress
+   scopes it to .editor-styles-wrapper automatically.
+   ========================================================================== */
+
+@import url("base.css");
+@import url("content.css");
+
+body {
+  background: var(--color-surface);
+}
+
+.editor-styles-wrapper {
+  font-family: var(--font-sans);
+  font-size: var(--text-md);
+  line-height: var(--leading-relaxed);
+  color: var(--color-text);
+}
+
+.editor-styles-wrapper .editor-post-title__input,
+.editor-styles-wrapper h1 {
+  font-family: var(--font-sans);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-navy);
+}

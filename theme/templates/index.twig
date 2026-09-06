@@ -1,0 +1,16 @@
+{% extends 'base.twig' %}
+
+{#
+  Blog index ("Stories" page) and last-resort fallback.
+#}
+
+{% block content %}
+  {% include 'partials/page-header.twig' with {
+    title: archive.title,
+    description: archive.description
+  } only %}
+
+  <div class="container">
+    {% include 'partials/post-list.twig' with { posts: posts } only %}
+  </div>
+{% endblock %}
