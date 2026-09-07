@@ -96,21 +96,38 @@ jobs:
       - name: Smoke test pages
         run: |
           set -e
+          # Matching happens with shell patterns instead of pipes into grep/head:
+          # a pipe whose reader exits early (grep -q, head) makes the writing echo
+          # fail with "write error: Broken pipe".
           check() {
-            url="$1"; expect="$2"; needle="$3"
+            local url="$1" expect="$2" needle="$3" body code html
             body=$(curl -s -w '\n%{http_code}' "$url")
-            code=$(echo "$body" | tail -n1)
-            html=$(echo "$body" | sed '$d')
-            [ "$code" = "$expect" ] || { echo "FAIL $url -> HTTP $code (expected $expect)"; echo "$html" | head -50; exit 1; }
-            echo "$html" | grep -q "$needle" || { echo "FAIL $url missing '$needle'"; exit 1; }
-            echo "$html" | grep -qi "fatal error\|Warning:" && { echo "FAIL $url contains PHP errors"; exit 1; }
+            code="${body##*$'\n'}"
+            html="${body%$'\n'*}"
+            if [ "$code" != "$expect" ]; then
+              echo "FAIL $url -> HTTP $code (expected $expect)"
+              printf '%s\n' "$html" | sed -n '1,50p'
+              exit 1
+            fi
+            if [[ "$html" != *"$needle"* ]]; then
+              echo "FAIL $url missing '$needle'"; exit 1
+            fi
+            local errors=0
+            shopt -s nocasematch
+            [[ "$html" == *"fatal error"* || "$html" == *"Warning:"* ]] && errors=1
+            shopt -u nocasematch
+            if [ "$errors" = 1 ]; then
+              echo "FAIL $url contains PHP errors"; exit 1
+            fi
             echo "ok  $url ($code)"
           }
-          check http://localhost:8080/            200 'class="site-header"'
-          check http://localhost:8080/            200 'class="hero'
-          check http://localhost:8080/about-us/   200 'class="page-header'
-          check http://localhost:8080/stories/    200 'card-grid'
-          check http://localhost:8080/?s=club     200 'search-form'
+          # Slugs have to exist in bin/wp-install.sh - keep both in sync.
+          check http://localhost:8080/               200 'class="site-header"'
+          check http://localhost:8080/               200 'class="hero'
+          check http://localhost:8080/our-history/   200 'class="page-header'
+          check http://localhost:8080/leadership/    200 'class="page-header'
+          check http://localhost:8080/stories/       200 'card-grid'
+          check http://localhost:8080/?s=club        200 'search-form'
           check http://localhost:8080/no-such-page-xyz/ 404 'not-found'
 
       - name: Debug log on failure
