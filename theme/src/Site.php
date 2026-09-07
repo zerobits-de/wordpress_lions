@@ -49,9 +49,6 @@ class Site extends TimberSite {
 		$networks = array(
 			'facebook'  => 'Facebook',
 			'instagram' => 'Instagram',
-			'linkedin'  => 'LinkedIn',
-			'x'         => 'X',
-			'youtube'   => 'YouTube',
 		);
 
 		$links = array();
@@ -74,17 +71,16 @@ class Site extends TimberSite {
 	}
 
 	/**
-	 * Organisation contact details for the footer.
+	 * Organisation contact details. `email` is shown in the footer; the rest
+	 * feeds the Organization JSON-LD in Seo.
 	 *
-	 * @return array{organization: string, address: string, phone: string, email: string, legal: string}
+	 * @return array{organization: string, phone: string, email: string}
 	 */
 	public function contact(): array {
 		return array(
 			'organization' => Customizer::mod( 'contact_organization' ),
-			'address'      => Customizer::mod( 'contact_address' ),
 			'phone'        => Customizer::mod( 'contact_phone' ),
 			'email'        => Customizer::mod( 'contact_email' ),
-			'legal'        => Customizer::mod( 'footer_legal' ),
 		);
 	}
 

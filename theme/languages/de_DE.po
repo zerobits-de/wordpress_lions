@@ -1,0 +1,140 @@
+# German translation of the Lions theme.
+# Covers the strings rendered on the front page.
+msgid ""
+msgstr ""
+"Project-Id-Version: Lions International Theme 0.1.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/theme/lions-theme\n"
+"Language: de_DE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Domain: lions-theme\n"
+
+#: templates/base.twig
+msgid "Skip to main content"
+msgstr "Zum Hauptinhalt springen"
+
+#: views/components/logo.twig
+msgid "Home"
+msgstr "Startseite"
+
+#: views/partials/header.twig
+msgid "Primary"
+msgstr "Hauptnavigation"
+
+#: views/partials/mobile-navigation.twig
+msgid "Mobile primary"
+msgstr "Hauptnavigation (mobil)"
+
+#: views/components/navigation.twig
+msgid "Show submenu for %s"
+msgstr "Untermenü für %s anzeigen"
+
+#: views/partials/header.twig
+msgid "Search"
+msgstr "Suche"
+
+#: views/components/search-form.twig
+msgid "Search the site"
+msgstr "Website durchsuchen"
+
+#: views/components/search-form.twig
+msgid "Search…"
+msgstr "Suchen …"
+
+#: views/partials/header.twig
+msgid "Menu"
+msgstr "Menü"
+
+#: src/Site.php
+msgid "Join"
+msgstr "Mitglied werden"
+
+#: src/Site.php
+msgid "Donate"
+msgstr "Spenden"
+
+#: src/Content/FrontPageContent.php
+msgid "Together, we serve where we are needed most."
+msgstr "Gemeinsam helfen wir dort, wo wir am dringendsten gebraucht werden."
+
+#: src/Content/FrontPageContent.php
+msgid "Small acts. Global reach."
+msgstr "Kleine Taten. Große Wirkung."
+
+#: src/Content/FrontPageContent.php
+msgid "Become a member"
+msgstr "Mitglied werden"
+
+#: src/Content/FrontPageContent.php
+msgid "Seventeen members founded Lions Club Musterstadt in January 1983. Ever since, the club has helped where help is needed in Musterstadt and the surrounding Verbandsgemeinde, guided by one motto: We serve."
+msgstr "Siebzehn Mitglieder gründeten den Lions Club Musterstadt im Januar 1983. Seither hilft der Club dort, wo in Musterstadt und der Verbandsgemeinde Hilfe gebraucht wird — nach einem Leitsatz: We serve."
+
+#: src/Content/FrontPageContent.php
+msgid "The Inclusion Cup, the advent calendar campaign and our benefit concerts fund very concrete things: school projects, sports equipment, and support for people with disabilities in the region."
+msgstr "Inklusions-Cup, Adventskalenderaktion und Benefizkonzerte finanzieren ganz Konkretes: Schulprojekte, Sportausrüstung und Unterstützung für Menschen mit Behinderung in der Region."
+
+#: src/Content/FrontPageContent.php
+msgid "Serving Musterstadt since 1983"
+msgstr "Seit 1983 für Musterstadt"
+
+#: src/Content/FrontPageContent.php
+msgid "More about the club"
+msgstr "Mehr über den Club"
+
+#: src/Content/FrontPageContent.php
+msgid "Service at scale"
+msgstr "Hilfe, die Kreise zieht"
+
+#: src/Content/FrontPageContent.php
+msgid "members worldwide"
+msgstr "Mitglieder weltweit"
+
+#: src/Content/FrontPageContent.php
+msgid "local clubs"
+msgstr "Clubs vor Ort"
+
+#: src/Content/FrontPageContent.php
+msgid "countries and areas"
+msgstr "Länder und Regionen"
+
+#: src/Content/FrontPageContent.php
+msgid "years of service"
+msgstr "Jahre im Einsatz"
+
+#: src/Content/FrontPageContent.php
+msgid "Ways to get involved"
+msgstr "So können Sie mitmachen"
+
+#: src/Content/FrontPageContent.php
+msgid "Join a club near you, volunteer for a single project, or support the foundation. Whatever your time and talents, there is a place for you."
+msgstr "Treten Sie einem Club in Ihrer Nähe bei, helfen Sie bei einem einzelnen Projekt mit oder unterstützen Sie die Stiftung. Wie viel Zeit und welche Talente Sie auch mitbringen – für Sie ist ein Platz da."
+
+#: src/Content/FrontPageContent.php
+msgid "Get involved"
+msgstr "Mitmachen"
+
+#: templates/front-page.twig
+msgid "Latest stories"
+msgstr "Aktuelles"
+
+#: views/sections/stories.twig
+msgid "All stories"
+msgstr "Alle Beiträge"
+
+#: src/Content/FrontPageContent.php
+msgid "Ready to make a difference?"
+msgstr "Bereit, etwas zu bewegen?"
+
+#: src/Content/FrontPageContent.php
+msgid "Get to know Lions Club Musterstadt as our guest."
+msgstr "Lernen Sie den Lions Club Musterstadt als Gast kennen."
+
+#: views/partials/footer.twig
+msgid "Legal"
+msgstr "Rechtliches"
+
+#: src/Content/FrontPageContent.php
+msgid "Read more"
+msgstr "Weiterlesen"

@@ -56,11 +56,11 @@ services:
         define( 'WP_SITEURL', 'http://localhost:${WORDPRESS_PORT:-8080}' );
       # Consumed by bin/wp-install.sh (make install)
       WORDPRESS_PORT: ${WORDPRESS_PORT:-8080}
-      WORDPRESS_SITE_TITLE: ${WORDPRESS_SITE_TITLE:-Lions International}
+      WORDPRESS_SITE_TITLE: ${WORDPRESS_SITE_TITLE:-Lions Club Musterstadt}
       WORDPRESS_ADMIN_USER: ${WORDPRESS_ADMIN_USER:-admin}
       WORDPRESS_ADMIN_PASSWORD: ${WORDPRESS_ADMIN_PASSWORD:-admin}
       WORDPRESS_ADMIN_EMAIL: ${WORDPRESS_ADMIN_EMAIL:-admin@example.com}
-      WORDPRESS_LOCALE: ${WORDPRESS_LOCALE:-en_US}
+      WORDPRESS_LOCALE: ${WORDPRESS_LOCALE:-de_DE}
     volumes:
       - wp_data:/var/www/html
       - ./theme:/var/www/html/wp-content/themes/lions-theme

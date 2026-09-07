@@ -97,23 +97,10 @@
   margin-block: var(--section-gap);
 }
 
-/* Page with optional aside (hierarchical pages) */
 .page-layout {
   display: grid;
   gap: var(--space-5);
   margin-block: var(--section-gap);
-}
-
-@media (min-width: 64em) {
-  .page-layout--with-aside {
-    grid-template-columns: minmax(0, 1fr) 18rem;
-    align-items: start;
-  }
-}
-
-.page-layout__aside {
-  position: sticky;
-  top: calc(var(--header-height) + var(--space-4));
 }
 
 .stat-grid {

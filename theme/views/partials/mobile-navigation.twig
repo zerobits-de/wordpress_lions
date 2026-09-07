@@ -42,16 +42,6 @@
       {% endif %}
     </div>
 
-    {% if menus.utility and menus.utility.items %}
-      <nav class="mobile-nav__utility" aria-label="{{ __('Mobile utility', 'lions-theme') }}">
-        <ul class="mobile-nav__utility-list">
-          {% for item in menus.utility.items %}
-            <li><a href="{{ item.link }}"{% if item.is_target_blank %} target="_blank" rel="noopener"{% endif %}>{{ item.title }}</a></li>
-          {% endfor %}
-        </ul>
-      </nav>
-    {% endif %}
-
     {% if site.social %}
       {% include 'components/social-links.twig' with { links: site.social, class: 'mobile-nav__social' } only %}
     {% endif %}

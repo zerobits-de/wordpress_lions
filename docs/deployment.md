@@ -15,6 +15,64 @@
 WordPress hosts have no Composer step, and Timber 2 is only distributed through Composer.
 Shipping `vendor/` is therefore the most reliable option. Dev dependencies are never included.
 
+## First deployment to a server (blank WordPress)
+
+The concrete commands for the production server (including installing WP-CLI on Debian) are
+in the [README](../README.md#server-installation); this section covers the same flow with
+the reasoning behind it.
+
+The server needs a running WordPress (any state: fresh install or blank), SSH access,
+[WP-CLI](https://wp-cli.org/), PHP 8.2+ with the GD extension (for the demo featured image)
+and `bash`. `WP_PATH` below is the WordPress root on the server (the directory holding
+`wp-config.php`).
+
+```bash
+# 1. Build the package locally
+make build                                   # -> build/lions-theme.zip
+
+# 2. Copy the theme and the seeding scripts to the server
+scp build/lions-theme.zip user@server:/tmp/
+scp bin/wp-install.sh bin/placeholder-image.php user@server:/tmp/
+
+# 3. On the server: install and activate the theme
+ssh user@server
+cd "$WP_PATH"
+wp theme install /tmp/lions-theme.zip --force --activate
+
+# 4. Seed the initial content (idempotent, existing content is left untouched)
+WP_PATH="$PWD" WORDPRESS_SITE_TITLE="Lions Club Musterstadt" WORDPRESS_LOCALE=de_DE \
+  bash /tmp/wp-install.sh
+```
+
+`wp-install.sh` skips the `wp core install` step when WordPress is already installed and
+takes the site URL from the existing `home` option, so it only creates pages, categories,
+demo stories, menus and the Customizer defaults. Run it again after a theme update; it
+never overwrites content that already exists.
+
+Afterwards, in *wp-admin*:
+
+- *Settings > Permalinks*: the script sets `/%postname%/`; re-save once if the host needs
+  to write `.htaccess`/nginx rules.
+- *Appearance > Customize > Lions International*: replace the placeholder phone number and
+  the Join/Donate URLs with the real ones.
+- Replace the demo featured image and the SVG placeholders in
+  `assets/images/placeholders/` with licensed photography.
+
+### Alternative: seed locally, then migrate
+
+If the content should be reviewed before it goes live, seed the local Docker environment,
+then move database and uploads:
+
+```bash
+make wp ARGS="db export /tmp/lions.sql"
+docker compose cp wordpress:/tmp/lions.sql ./lions.sql
+# on the server, after importing:
+wp search-replace 'http://localhost:8080' 'https://example.com' --all-tables-with-prefix --precise
+wp cache flush
+```
+
+Never do this against a site that already has real content - it replaces the database.
+
 ## Releases
 
 ```

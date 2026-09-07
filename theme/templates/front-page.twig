@@ -16,28 +16,24 @@
     heading_level: 2
   } only %}
 
-  {% include 'sections/cards.twig' with {
-    id: 'initiatives',
-    title: initiatives.title,
-    intro: initiatives.intro,
-    items: initiatives.items
-  } only %}
-
   {% include 'sections/statistics.twig' with {
     id: 'impact',
     title: statistics.title,
     items: statistics.items
   } only %}
 
-  {% include 'sections/feature.twig' with {
-    id: 'get-involved',
-    title: feature.title,
-    body: feature.body,
-    image: feature.image,
-    action: feature.action,
-    reverse: feature.reverse,
-    heading_level: 2
-  } only %}
+  {# One lockup per post in the category chosen under Customizer > Lions International. #}
+  {% for block in feature_posts %}
+    {% include 'sections/feature.twig' with {
+      id: block.id,
+      title: block.title,
+      body: block.body,
+      image: block.image,
+      action: block.action,
+      reverse: block.reverse,
+      heading_level: 2
+    } only %}
+  {% endfor %}
 
   {% include 'sections/stories.twig' with {
     id: 'stories',

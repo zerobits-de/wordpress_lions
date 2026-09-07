@@ -2,24 +2,13 @@
 
 {% block content %}
   <article class="story" id="post-{{ post.ID }}">
-    <header class="story__header">
-      <div class="container story__header-inner">
-        {% include 'components/breadcrumb.twig' with { items: breadcrumbs } only %}
-        {% set category = post.category %}
-        {% if category %}
-          <p class="story__eyebrow"><a href="{{ category.link }}">{{ category.title }}</a></p>
-        {% endif %}
-        <h1 class="story__title">{{ post.title }}</h1>
-        {% include 'components/post-meta.twig' with { post: post, show_author: true } only %}
-      </div>
-    </header>
-
+    {# Full-bleed hero. Posts without a featured image get no image block at all. #}
     {% if post.thumbnail %}
-      <figure class="story__media container">
+      <figure class="story__media">
         {% include 'components/image.twig' with {
           image: post.thumbnail,
-          size: 'lions-feature',
-          sizes: '(min-width: 1280px) 1180px, 100vw',
+          size: 'lions-hero',
+          sizes: '100vw',
           loading: 'eager',
           fetchpriority: 'high',
           class: 'story__image'
@@ -29,6 +18,18 @@
         {% endif %}
       </figure>
     {% endif %}
+
+    <header class="story__header">
+      <div class="container">
+        {% include 'components/breadcrumb.twig' with { items: breadcrumbs } only %}
+        {% set category = post.category %}
+        {% if category %}
+          <p class="story__eyebrow"><a href="{{ category.link }}">{{ category.title }}</a></p>
+        {% endif %}
+        <h1 class="story__title">{{ post.title }}</h1>
+        {% include 'components/post-meta.twig' with { post: post, show_author: true } only %}
+      </div>
+    </header>
 
     <div class="container">
       <div class="panel prose story__body">

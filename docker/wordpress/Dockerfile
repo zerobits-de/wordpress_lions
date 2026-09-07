@@ -26,3 +26,9 @@ RUN { \
 
 ENV COMPOSER_ALLOW_SUPERUSER=1
 WORKDIR /var/www/html
+
+# Keeps wp-content/uploads writable by the web server user before handing over
+# to the official entrypoint, so media uploads work in wp-admin.
+COPY --chmod=755 entrypoint.sh /usr/local/bin/lions-entrypoint.sh
+ENTRYPOINT ["lions-entrypoint.sh"]
+CMD ["apache2-foreground"]

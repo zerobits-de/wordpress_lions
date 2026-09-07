@@ -2,26 +2,27 @@
 # This file is distributed under the Proprietary.
 msgid ""
 msgstr ""
-"Project-Id-Version: Lions International Theme 0.1.0\n"
+"Project-Id-Version: Lions International 0.1.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/lions-theme\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-09-06T09:27:53+00:00\n"
+"POT-Creation-Date: 2026-09-07T11:44:47+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: lions-theme\n"
 
 #. Theme Name of the theme
 #: style.css
-#: src/Functions/Customizer.php:85
-#: src/Functions/Customizer.php:142
+#: src/Functions/Customizer.php:71
+#: src/Functions/Customizer.php:124
 msgid "Lions International"
 msgstr ""
 
 #. Theme URI of the theme
+#. Author URI of the theme
 #: style.css
 msgid "https://github.com/your-org/lions-theme"
 msgstr ""
@@ -36,11 +37,6 @@ msgstr ""
 msgid "Lions International Web Team"
 msgstr ""
 
-#. Author URI of the theme
-#: style.css
-msgid "https://www.lionsclubs.org/"
-msgstr ""
-
 #. translators: %s: composer command
 #: functions.php:24
 #, php-format
@@ -51,213 +47,157 @@ msgstr ""
 msgid "Theme dependencies missing"
 msgstr ""
 
-#: src/Components/Breadcrumbs.php:28
+#: src/Components/Breadcrumbs.php:32
 msgid "Home"
 msgstr ""
 
-#: src/Content/FrontPageContent.php:34
+#: src/Content/FrontPageContent.php:38
 msgid "Together, we serve where we are needed most."
 msgstr ""
 
-#: src/Content/FrontPageContent.php:35
+#: src/Content/FrontPageContent.php:39
 msgid "Small acts. Global reach."
 msgstr ""
 
-#: src/Content/FrontPageContent.php:42
+#: src/Content/FrontPageContent.php:43
+#: src/Content/FrontPageContent.php:221
 msgid "Become a member"
 msgstr ""
 
-#: src/Content/FrontPageContent.php:47
-msgid "See our impact"
-msgstr ""
-
-#: src/Content/FrontPageContent.php:69
-msgid "Lions are neighbours, colleagues and friends who decided that the best answer to a local need is to roll up their sleeves. Clubs in more than two hundred countries and geographic areas bring people together around one simple idea: communities improve when people serve them."
-msgstr ""
-
-#: src/Content/FrontPageContent.php:70
-msgid "From sight screenings and food drives to youth programmes and disaster response, every project starts with someone who cares. Our foundation amplifies that care with grants that turn local ideas into lasting change."
-msgstr ""
-
-#: src/Content/FrontPageContent.php:74
-msgid "United in service"
-msgstr ""
-
-#: src/Content/FrontPageContent.php:81
-msgid "About Lions"
-msgstr ""
-
 #: src/Content/FrontPageContent.php:96
-msgid "Vision"
+msgid "Seventeen members founded Lions Club Musterstadt in January 1983. Ever since, the club has helped where help is needed in Musterstadt and the surrounding Verbandsgemeinde, guided by one motto: We serve."
 msgstr ""
 
 #: src/Content/FrontPageContent.php:97
-msgid "Preventing avoidable blindness and supporting people with low vision through screenings, surgeries and equipment."
+msgid "The Inclusion Cup, the advent calendar campaign and our benefit concerts fund very concrete things: school projects, sports equipment, and support for people with disabilities in the region."
 msgstr ""
 
-#: src/Content/FrontPageContent.php:102
-msgid "Youth"
-msgstr ""
-
-#: src/Content/FrontPageContent.php:103
-msgid "Leadership programmes, scholarships and Leo clubs that give young people a way to lead through service."
+#: src/Content/FrontPageContent.php:101
+msgid "Serving Musterstadt since 1983"
 msgstr ""
 
 #: src/Content/FrontPageContent.php:108
-msgid "Hunger"
+msgid "More about the club"
 msgstr ""
 
-#: src/Content/FrontPageContent.php:109
-msgid "Food banks, school meals and community gardens that make sure no neighbour goes without a meal."
-msgstr ""
-
-#: src/Content/FrontPageContent.php:114
-msgid "Environment"
-msgstr ""
-
-#: src/Content/FrontPageContent.php:115
-msgid "Tree planting, clean-up days and conservation projects that protect the places we share."
-msgstr ""
-
-#: src/Content/FrontPageContent.php:128
-msgid "Learn more"
-msgstr ""
-
-#: src/Content/FrontPageContent.php:133
-msgid "Where we focus"
-msgstr ""
-
-#: src/Content/FrontPageContent.php:134
-msgid "Our global causes give every club a shared direction while leaving room for local priorities."
-msgstr ""
-
-#: src/Content/FrontPageContent.php:146
+#: src/Content/FrontPageContent.php:122
 msgid "Service at scale"
 msgstr ""
 
-#: src/Content/FrontPageContent.php:150
+#: src/Content/FrontPageContent.php:126
 msgid "members worldwide"
 msgstr ""
 
-#: src/Content/FrontPageContent.php:155
+#: src/Content/FrontPageContent.php:131
 msgid "local clubs"
 msgstr ""
 
-#: src/Content/FrontPageContent.php:160
+#: src/Content/FrontPageContent.php:136
 msgid "countries and areas"
 msgstr ""
 
-#: src/Content/FrontPageContent.php:165
+#: src/Content/FrontPageContent.php:141
 msgid "years of service"
 msgstr ""
 
-#: src/Content/FrontPageContent.php:179
-msgid "Ways to get involved"
+#: src/Content/FrontPageContent.php:199
+msgid "Read more"
 msgstr ""
 
-#: src/Content/FrontPageContent.php:180
-msgid "Join a club near you, volunteer for a single project, or support the foundation. Whatever your time and talents, there is a place for you."
-msgstr ""
-
-#: src/Content/FrontPageContent.php:187
-msgid "Get involved"
-msgstr ""
-
-#: src/Content/FrontPageContent.php:201
+#: src/Content/FrontPageContent.php:217
 msgid "Ready to make a difference?"
 msgstr ""
 
-#: src/Content/FrontPageContent.php:202
-msgid "Find a club, meet your neighbours and start serving this month."
+#: src/Content/FrontPageContent.php:218
+msgid "Get to know Lions Club Musterstadt as our guest."
 msgstr ""
 
-#: src/Content/FrontPageContent.php:205
-msgid "Find a club"
-msgstr ""
-
-#: src/Content/FrontPageContent.php:210
-#: src/Site.php:37
-msgid "Donate"
-msgstr ""
-
-#: src/Controllers/IndexController.php:27
+#: src/Controllers/IndexController.php:37
 msgid "Stories"
 msgstr ""
 
-#: src/Functions/Customizer.php:33
+#: src/Functions/Customizer.php:40
 msgid "Join URL"
 msgstr ""
 
-#: src/Functions/Customizer.php:40
+#: src/Functions/Customizer.php:47
 msgid "Donate URL"
 msgstr ""
 
-#: src/Functions/Customizer.php:82
+#: src/Functions/Customizer.php:68
 msgid "Organisation name"
 msgstr ""
 
-#: src/Functions/Customizer.php:89
-msgid "Postal address (one line per row)"
-msgstr ""
-
-#: src/Functions/Customizer.php:96
+#: src/Functions/Customizer.php:75
 msgid "Phone"
 msgstr ""
 
-#: src/Functions/Customizer.php:103
+#: src/Functions/Customizer.php:82
 msgid "Email"
 msgstr ""
 
-#: src/Functions/Customizer.php:110
-msgid "Footer legal text"
+#: src/Functions/Customizer.php:131
+msgid "Homepage hero"
 msgstr ""
 
-#: src/Functions/Customizer.php:113
-msgid "Placeholder legal notice. Replace with the organisation's registered details and charitable status."
+#. translators: %d: maximum number of hero background images.
+#: src/Functions/Customizer.php:134
+#, php-format
+msgid "Up to %d background images for the homepage hero. Leave a slot empty to skip it. With more than one image they cross-fade; with none the theme placeholder is used."
 msgstr ""
 
-#: src/Functions/Customizer.php:148
+#: src/Functions/Customizer.php:139
+msgid "Homepage feature blocks"
+msgstr ""
+
+#: src/Functions/Customizer.php:140
+msgid "Posts in the chosen category are shown on the homepage as large photo blocks, the same layout as the intro block. Assign a post to that category to add a block; remove it to take the block away. Choose \"None\" to show no blocks at all."
+msgstr ""
+
+#: src/Functions/Customizer.php:143
 msgid "Calls to action"
 msgstr ""
 
-#: src/Functions/Customizer.php:149
+#: src/Functions/Customizer.php:147
 msgid "Social profiles"
 msgstr ""
 
-#: src/Functions/Customizer.php:150
+#: src/Functions/Customizer.php:151
 msgid "Contact & legal"
 msgstr ""
 
-#: src/Functions/Menus.php:40
+#: src/Functions/Customizer.php:244
+msgid "— None —"
+msgstr ""
+
+#: src/Functions/Customizer.php:262
+msgid "Category"
+msgstr ""
+
+#. translators: %d: position of the image in the hero background.
+#: src/Functions/Customizer.php:300
+#, php-format
+msgid "Background image %d"
+msgstr ""
+
+#: src/Functions/Menus.php:35
 msgid "Primary navigation"
 msgstr ""
 
-#: src/Functions/Menus.php:41
-msgid "Utility bar (top links)"
+#: src/Functions/Menus.php:36
+msgid "Legal links (footer)"
 msgstr ""
 
-#: src/Functions/Menus.php:42
-msgid "Footer column 1"
-msgstr ""
-
-#: src/Functions/Menus.php:43
-msgid "Footer column 2"
-msgstr ""
-
-#: src/Functions/Menus.php:44
-msgid "Footer column 3"
-msgstr ""
-
-#: src/Functions/Menus.php:45
-msgid "Legal links (footer bottom)"
-msgstr ""
-
-#: src/Functions/Security.php:31
+#: src/Functions/Security.php:37
 msgid "The credentials you entered are not valid."
 msgstr ""
 
 #: src/Site.php:33
 msgid "Join"
+msgstr ""
+
+#: src/Site.php:37
+msgid "Donate"
 msgstr ""
 
 #: theme.json

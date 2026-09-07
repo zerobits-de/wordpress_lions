@@ -8,16 +8,10 @@
   } only %}
 
   <div class="container">
-    <div class="page-layout{% if subpages %} page-layout--with-aside{% endif %}">
+    <div class="page-layout">
       <article class="panel prose" id="post-{{ post.ID }}">
         {{ post.content }}
       </article>
-
-      {% if subpages %}
-        <aside class="page-layout__aside" aria-labelledby="subpages-title">
-          {% include 'components/subnav.twig' with { subpages: subpages, current_id: post.ID } only %}
-        </aside>
-      {% endif %}
     </div>
   </div>
 {% endblock %}

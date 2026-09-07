@@ -4,7 +4,7 @@
 
 .site-footer {
   margin-top: var(--section-gap);
-  padding-block: var(--space-8) var(--space-6);
+  padding-block: var(--space-6);
   background: var(--color-navy);
   color: var(--color-text-inverse);
 }
@@ -19,81 +19,26 @@
   text-decoration: underline;
 }
 
-.site-footer__columns {
-  display: grid;
-  gap: var(--space-6) var(--space-5);
-  grid-template-columns: 1fr;
-  padding-bottom: var(--space-6);
-}
-
-@media (min-width: 40em) {
-  .site-footer__columns {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-@media (min-width: 64em) {
-  .site-footer__columns {
-    grid-template-columns: repeat(3, minmax(0, 1fr)) 1.4fr;
-  }
-}
-
-.site-footer__heading {
-  margin-bottom: var(--space-4);
-  font-size: var(--text-sm);
-  font-weight: var(--font-weight-bold);
-  letter-spacing: var(--tracking-wider);
-  text-transform: uppercase;
-  color: var(--color-accent);
-}
-
-.footer-nav__list {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.footer-nav__item + .footer-nav__item {
-  margin-top: var(--space-3);
-}
-
-.footer-nav__link {
-  font-size: var(--text-md);
-}
-
-.site-footer__org {
-  display: grid;
-  gap: var(--space-4);
-  align-content: start;
-}
-
-.site-footer__address p {
-  margin: 0 0 var(--space-2);
-}
-
-.site-footer__legal {
-  padding-top: var(--space-5);
-  border-top: 2px solid rgb(255 255 255 / 0.9);
-}
-
-.site-footer__legal-text {
-  font-size: var(--text-sm);
-  color: rgb(255 255 255 / 0.85);
-  max-width: 70rem;
-}
-
-.site-footer__bottom {
+/* Stacked on small screens, one row once there is room. */
+.site-footer__inner {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: var(--space-3) var(--space-5);
-  margin-top: var(--space-4);
+  gap: var(--space-5);
+}
+
+.site-footer__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-4) var(--space-6);
   font-size: var(--text-sm);
 }
 
-.site-footer__copyright {
+.site-footer__address {
   margin: 0;
+  font-style: normal;
 }
 
 .legal-nav__list {
@@ -127,9 +72,13 @@
   transition: background var(--transition-fast), color var(--transition-fast);
 }
 
-.social-links__link:hover {
+/* Scoped with the list class so it outranks `.site-footer a:hover`, which would
+   otherwise recolour the icon yellow on the yellow pill. */
+.social-links .social-links__link:hover,
+.social-links .social-links__link:focus-visible {
   background: var(--color-accent);
   color: var(--color-navy);
+  text-decoration: none;
 }
 
 .social-links__link .icon {
@@ -139,7 +88,8 @@
   stroke: none;
 }
 
-/* The CTA band already provides the navy lead-in; no gap before the footer. */
-.cta-band + .site-footer {
+/* The CTA band already provides the navy lead-in; no gap before the footer.
+   The band is the last section inside <main>, not a sibling of the footer. */
+.site-main:has(> .cta-band:last-child) + .site-footer {
   margin-top: 0;
 }

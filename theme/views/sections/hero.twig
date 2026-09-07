@@ -1,9 +1,24 @@
 {#
-  Full-bleed photographic hero. Params: hero {title, subtitle, image, actions[]}
+  Full-bleed photographic hero. Params: hero {title, subtitle, images[], actions[]}
+
+  images holds one to three backgrounds chosen in the Customizer. The first one is
+  marked active server-side, so a single image (or a visitor without JS) sees a
+  static hero; main.js cross-fades the rest.
 #}
 <section class="hero" aria-labelledby="hero-title">
-  <div class="hero__media">
-    {% include 'components/image.twig' with { image: hero.image, size: 'lions-hero', sizes: '100vw', loading: 'eager', fetchpriority: 'high', class: 'hero__image' } only %}
+  <div class="hero__media"{% if hero.images|length > 1 %} data-hero-slideshow{% endif %}>
+    {% for image in hero.images %}
+      <div class="hero__slide{{ loop.first ? ' is-active' : '' }}">
+        {% include 'components/image.twig' with {
+          image: image,
+          size: 'lions-hero',
+          sizes: '100vw',
+          loading: loop.first ? 'eager' : 'lazy',
+          fetchpriority: loop.first ? 'high' : '',
+          class: 'hero__image'
+        } only %}
+      </div>
+    {% endfor %}
   </div>
   <div class="container hero__content">
     <h1 class="hero__title" id="hero-title">{{ hero.title|e }}</h1>

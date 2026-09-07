@@ -5,8 +5,8 @@
  *  - mobile off-canvas navigation (focus management, Escape, inert background)
  *  - accordion submenus inside the mobile navigation
  *  - primary navigation dropdowns (toggle button for touch/keyboard, Escape to close)
- *  - header search popover
  *  - compact header after scrolling
+ *  - cross-fading hero background images
  */
 (function () {
   'use strict';
@@ -112,42 +112,11 @@
   });
 
   /* ---------------------------------------------------------------------
-   * Header search popover
-   * ------------------------------------------------------------------- */
-  var searchToggle = $('[data-search-toggle]');
-  var searchPanel = $('[data-search-panel]');
-  var searchWrap = $('[data-search]');
-
-  function closeSearch(returnFocus) {
-    if (!searchPanel || searchPanel.hidden) { return; }
-    searchPanel.hidden = true;
-    setExpanded(searchToggle, false);
-    if (returnFocus) { searchToggle.focus(); }
-  }
-
-  if (searchToggle && searchPanel) {
-    searchToggle.addEventListener('click', function () {
-      var open = searchPanel.hidden;
-      searchPanel.hidden = !open;
-      setExpanded(searchToggle, open);
-      if (open) {
-        var input = searchPanel.querySelector('input');
-        if (input) { input.focus(); }
-      }
-    });
-
-    doc.addEventListener('click', function (event) {
-      if (searchWrap && !searchWrap.contains(event.target)) { closeSearch(false); }
-    });
-  }
-
-  /* ---------------------------------------------------------------------
    * Escape closes whatever is open; clicks outside close dropdowns
    * ------------------------------------------------------------------- */
   doc.addEventListener('keydown', function (event) {
     if (event.key !== 'Escape') { return; }
     closeMobileNav(true);
-    closeSearch(true);
     dropdownToggles.forEach(function (button) {
       if (isExpanded(button)) {
         closeDropdown(button);
@@ -159,6 +128,32 @@
   doc.addEventListener('click', function (event) {
     if (!event.target.closest('.primary-nav__item')) { closeAllDropdowns(null); }
   });
+
+  /* ---------------------------------------------------------------------
+   * Hero background cross-fade
+   *
+   * The markup already marks the first slide active, so this only runs when an
+   * editor picked more than one image in the Customizer. Visitors who asked for
+   * reduced motion keep the first image; a hard cut every few seconds would be
+   * worse for them than no slideshow at all.
+   * ------------------------------------------------------------------- */
+  var heroMedia = $('[data-hero-slideshow]');
+
+  if (heroMedia && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    var slides = $$('.hero__slide', heroMedia);
+
+    if (slides.length > 1) {
+      var current = 0;
+
+      window.setInterval(function () {
+        // Skip while the tab is hidden, otherwise the fade is spent unseen.
+        if (doc.hidden) { return; }
+        slides[current].classList.remove('is-active');
+        current = (current + 1) % slides.length;
+        slides[current].classList.add('is-active');
+      }, 6000);
+    }
+  }
 
   /* ---------------------------------------------------------------------
    * Compact header after scrolling (desktop)

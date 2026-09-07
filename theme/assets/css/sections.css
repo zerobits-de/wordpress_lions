@@ -19,6 +19,19 @@
   z-index: -1;
 }
 
+/* One layer per background image, stacked. Only .is-active is visible; main.js
+   moves that class along and the opacity transition does the cross-fade. */
+.hero__slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity var(--transition-slow);
+}
+
+.hero__slide.is-active {
+  opacity: 1;
+}
+
 .hero__image {
   width: 100%;
   height: 100%;
@@ -218,10 +231,6 @@
   border-bottom: 1px solid var(--color-border);
 }
 
-.story__header-inner {
-  max-width: calc(var(--container-narrow) + 2 * var(--container-padding));
-}
-
 .story__eyebrow {
   margin-bottom: var(--space-2);
   font-size: var(--text-sm);
@@ -239,18 +248,25 @@
   color: var(--color-navy);
 }
 
+/* Hero: full viewport width, directly below the site navigation and above the
+   header band that carries the breadcrumb and title. A fixed height (rather than
+   an aspect ratio) keeps the image from dominating wide screens, the same way
+   .hero and .page-header--has-image are sized. */
 .story__media {
-  margin: var(--section-gap) auto 0;
+  margin: 0;
 }
 
 .story__image {
   width: 100%;
-  aspect-ratio: 3 / 2;
+  height: clamp(15rem, 42vw, 32rem);
   object-fit: cover;
 }
 
+/* The caption lines up with the header band below it, not with the image. */
 .story__caption {
-  margin-top: var(--space-2);
+  max-width: var(--container-width);
+  margin: var(--space-2) auto 0;
+  padding-inline: var(--container-padding);
   font-size: var(--text-sm);
   color: var(--color-muted);
 }

@@ -13,6 +13,7 @@ use Lions\Theme\Functions\Assets;
 use Lions\Theme\Functions\Context;
 use Lions\Theme\Functions\Customizer;
 use Lions\Theme\Functions\Menus;
+use Lions\Theme\Functions\Redirects;
 use Lions\Theme\Functions\Security;
 use Lions\Theme\Functions\Seo;
 use Lions\Theme\Functions\ThemeSupport;
@@ -62,6 +63,7 @@ final class Theme {
 		TwigExtensions::class,
 		Seo::class,
 		Security::class,
+		Redirects::class,
 	);
 
 	/**

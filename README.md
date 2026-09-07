@@ -14,8 +14,10 @@ edges, statistic tiles, substantial navy footer) and implemented independently. 
 ```
 .
 ├── .github/workflows/     ci.yml (validation + Docker smoke test + package), release.yml (tag -> GitHub Release)
-├── bin/                   build.sh, twig-lint.php, validate-theme.sh, wp-install.sh (WP-CLI setup + demo content)
-├── docker/wordpress/      Dockerfile: WordPress 7.1 / PHP 8.3 / Apache + Composer + WP-CLI
+├── bin/                   build.sh, twig-lint.php, validate-theme.sh, wp-install.sh (WP-CLI setup + demo content),
+│                          placeholder-image.php (generates the demo featured images)
+├── docker/wordpress/      Dockerfile: WordPress 7.1 / PHP 8.3 / Apache + Composer + WP-CLI;
+│                          entrypoint.sh keeps wp-content/uploads writable by www-data
 ├── docs/                  design.md, architecture.md, deployment.md
 ├── theme/                 the WordPress theme (mounted into the container as lions-theme)
 │   ├── functions.php      loads Composer + boots Lions\Theme\Theme
@@ -131,6 +133,83 @@ make build            # -> build/lions-theme.zip
 The package contains only what WordPress needs, including production Composer dependencies
 (`vendor/` with Timber and Twig, no dev tools). Upload it via *Appearance > Themes > Add New >
 Upload Theme* or unzip into `wp-content/themes/`. Rationale and deployment strategies:
+[`docs/deployment.md`](docs/deployment.md).
+
+## Server installation
+
+Deploying to a real server (production is `https://lions-vallendar.org`, WordPress root
+`/srv/www/wp_lions`). The server needs an installed WordPress, PHP 8.2+ **with the GD
+extension** (the seeder generates the demo featured image) and WP-CLI.
+
+### WP-CLI on Debian
+
+Debian's packaged `wp-cli` lags upstream; install the phar, the same way
+`docker/wordpress/Dockerfile` does:
+
+```bash
+sudo apt update
+sudo apt install -y php-cli php-mysql php-xml php-mbstring php-curl php-zip php-gd curl
+
+curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+php wp-cli.phar --info                  # sanity check before installing
+chmod +x wp-cli.phar
+sudo mv wp-cli.phar /usr/local/bin/wp
+wp --info
+```
+
+Optionally verify the download first:
+
+```bash
+curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar.sha512
+sha512sum -c wp-cli.phar.sha512
+```
+
+### Theme and initial content
+
+The repository is not needed on the server - the ZIP is self-contained (it carries
+`vendor/`), and the two seeding scripts are copied alongside it. Build locally:
+
+```bash
+make build
+scp build/lions-theme.zip bin/wp-install.sh bin/placeholder-image.php user@server:/tmp/
+```
+
+Then on the server, as the user owning the WordPress directory (typically `www-data`,
+hence `sudo -u www-data`; as root, WP-CLI additionally needs `--allow-root`):
+
+```bash
+cd /srv/www/wp_lions
+
+# must print https://lions-vallendar.org - every seeded permalink inherits it
+sudo -u www-data wp option get home
+
+sudo -u www-data wp theme install /tmp/lions-theme.zip --force --activate
+
+sudo -u www-data env \
+  WP_PATH=/srv/www/wp_lions \
+  WORDPRESS_SITE_TITLE="Lions Vallendar" \
+  WORDPRESS_LOCALE=de_DE \
+  bash /tmp/wp-install.sh
+```
+
+`wp-install.sh` reads the site URL from the existing `home` option and skips
+`wp core install` when WordPress is already set up, so it only creates pages, categories,
+demo stories, both menus and the Customizer defaults. It is idempotent - existing content
+is never overwritten - so it can be re-run after a theme update. Useful variables:
+
+| Variable                | Default                      | Purpose                                  |
+|-------------------------|------------------------------|------------------------------------------|
+| `WP_PATH`               | `/var/www/html`              | WordPress root (the `wp-config.php` dir) |
+| `WORDPRESS_URL`         | `http://localhost:8080`      | Only used when WordPress is *not* yet installed |
+| `WORDPRESS_SITE_TITLE`  | `Lions Vallendar`            | Site title, re-applied on every run      |
+| `WORDPRESS_LOCALE`      | `de_DE`                      | Installs and activates core translations |
+| `CONTACT_EMAIL`         | `info@lion-example.com`      | Address used in Impressum, Datenschutz and the Customizer |
+
+Afterwards, in wp-admin: re-save *Settings > Permalinks* if the host has to write rewrite
+rules, and replace the placeholder phone number under
+*Appearance > Customize > Lions International*.
+
+Migration alternatives (seed locally, then move the database) and CI-based deployment:
 [`docs/deployment.md`](docs/deployment.md).
 
 ## Release

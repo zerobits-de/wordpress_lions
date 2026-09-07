@@ -14,7 +14,7 @@ use Timber\Post;
 use Timber\Timber;
 
 /**
- * Homepage: hero, intro, initiatives, statistics, latest stories, call to action.
+ * Homepage: hero, intro, statistics, latest stories, call to action.
  *
  * Section data comes from FrontPageContent (placeholder copy that editors can
  * override through the "Home" page content and the Customizer). Latest stories
@@ -43,13 +43,12 @@ final class FrontPageController extends AbstractController {
 
 		$content = new FrontPageContent();
 
-		$context['hero']        = $content->hero();
-		$context['intro']       = $content->intro( $page instanceof Post ? $page : null );
-		$context['initiatives'] = $content->initiatives();
-		$context['statistics']  = $content->statistics();
-		$context['feature']     = $content->feature();
-		$context['cta']         = $content->cta();
-		$context['stories']     = Timber::get_posts(
+		$context['hero']          = $content->hero();
+		$context['intro']         = $content->intro( $page instanceof Post ? $page : null );
+		$context['statistics']    = $content->statistics();
+		$context['feature_posts'] = $content->feature_posts();
+		$context['cta']           = $content->cta();
+		$context['stories']       = Timber::get_posts(
 			array(
 				'post_type'           => 'post',
 				'posts_per_page'      => 3,

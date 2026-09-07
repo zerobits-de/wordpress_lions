@@ -1,63 +1,28 @@
 {#
-  Site footer: menu columns, organisation block, legal row.
+  Compact site footer: social profiles on the left, contact email and legal
+  links on the right.
 #}
 <footer class="site-footer">
   <div class="container site-footer__inner">
-    <div class="site-footer__columns">
-      {% for column in menus.footer %}
-        <div class="site-footer__column">
-          <h2 class="site-footer__heading">{{ column.title }}</h2>
-          {% include 'components/navigation.twig' with {
-            menu: column.menu,
-            class: 'footer-nav',
-            aria_label: column.title,
-            depth: 1
-          } only %}
-        </div>
-      {% endfor %}
+    {% if site.social %}
+      {% include 'components/social-links.twig' with { links: site.social, class: 'site-footer__social' } only %}
+    {% endif %}
 
-      <div class="site-footer__org">
-        {% if site.social %}
-          {% include 'components/social-links.twig' with { links: site.social, class: 'site-footer__social' } only %}
-        {% endif %}
-
-        <div class="site-footer__brand">
-          {% include 'components/logo.twig' with { site: site, variant: 'light', linked: false } only %}
-        </div>
-
-        {% set contact = site.contact %}
+    <div class="site-footer__meta">
+      {% if site.contact.email %}
         <address class="site-footer__address">
-          {% if contact.address %}
-            <p>{{ contact.address|e|nl2br }}</p>
-          {% endif %}
-          {% if contact.phone %}
-            <p><a href="{{ contact.phone|tel }}">{{ contact.phone|e }}</a></p>
-          {% endif %}
-          {% if contact.email %}
-            <p><a href="mailto:{{ contact.email|e('html_attr') }}">{{ contact.email|e }}</a></p>
-          {% endif %}
+          <a href="mailto:{{ site.contact.email|e('html_attr') }}">{{ site.contact.email|e }}</a>
         </address>
-      </div>
-    </div>
-
-    <div class="site-footer__legal">
-      {% if site.contact.legal %}
-        <p class="site-footer__legal-text">{{ site.contact.legal|e|nl2br }}</p>
       {% endif %}
 
-      <div class="site-footer__bottom">
-        <p class="site-footer__copyright">
-          &copy; {{ 'now'|date('Y') }} {{ (site.contact.organization ?: site.name)|e }}
-        </p>
-        {% if menus.legal %}
-          {% include 'components/navigation.twig' with {
-            menu: menus.legal,
-            class: 'legal-nav',
-            aria_label: __('Legal', 'lions-theme'),
-            depth: 1
-          } only %}
-        {% endif %}
-      </div>
+      {% if menus.legal %}
+        {% include 'components/navigation.twig' with {
+          menu: menus.legal,
+          class: 'legal-nav',
+          aria_label: __('Legal', 'lions-theme'),
+          depth: 1
+        } only %}
+      {% endif %}
     </div>
   </div>
 </footer>

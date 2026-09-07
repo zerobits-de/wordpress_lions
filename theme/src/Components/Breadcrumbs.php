@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace Lions\Theme\Components;
 
+use Lions\Theme\Functions\Redirects;
 use Timber\Post;
 use Timber\Term;
 
@@ -35,7 +36,8 @@ final class Breadcrumbs {
 
 		if ( 'page' === $post->post_type ) {
 			foreach ( array_reverse( iterator_to_array( $post->ancestors(), false ) ) as $ancestor ) {
-				if ( $ancestor instanceof Post ) {
+				// A parent that only redirects to this page would show up twice.
+				if ( $ancestor instanceof Post && ! Redirects::redirects_to( $ancestor->slug, $post->slug ) ) {
 					$items[] = array(
 						'title' => $ancestor->title(),
 						'url'   => $ancestor->link(),

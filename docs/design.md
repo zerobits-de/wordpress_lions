@@ -13,12 +13,12 @@ values below come from observing the rendered site in a browser.
 | Typography | Helvetica Neue throughout: light weight body at 16/24, bold headings (~62px hero, 42px section titles, 36px feature titles), slightly tracked. | System Helvetica Neue / Arial stack, no webfont. Fluid sizes via `clamp()`: `--text-3xl` (36-62px), `--text-2xl` (28-42px). |
 | Section headings | Left-aligned bold heading with a short yellow rule underneath. | `.section-title::after` (4.5rem x 4px, `--color-accent`). |
 | Buttons | 5px radius, bold label, generous padding (~14px 30px). Blue "Join", yellow "Donate", purple secondary, white outline on dark. | `.btn` with variants `primary`, `accent`, `purple`, `outline`, `outline-light`, `link`. |
-| Header | Three tiers: small uppercase utility links (top right), logo row with Join/Donate and a search icon, then the bold primary navigation. Collapses to one compact sticky row on scroll. | `partials/header.twig` + `header.css`; `is-compact` class toggled by `main.js`. |
-| Hero | Full-bleed photograph with a dark overlay, very large white headline, yellow sub-line, centred. | `sections/hero.twig`, `.hero` with gradient overlay. |
+| Header | Two tiers: logo row with Join/Donate, then the bold primary navigation. Collapses to one compact sticky row on scroll. | `partials/header.twig` + `header.css`; `is-compact` class toggled by `main.js`. |
+| Hero | Full-bleed photograph with a dark overlay, very large white headline, yellow sub-line, centred. | `sections/hero.twig`, `.hero` with gradient overlay. Up to three backgrounds are set in the Customizer and cross-fade every 6s (`--transition-slow`); reduced motion keeps the first one. |
 | Photo lockups | Two-column panels where the photograph has a slanted edge and the text column has heading, rule, copy and one button. Alternates image left/right. | `sections/feature.twig` with `clip-path` diagonal (`--angle-cut`) on >= 64em. |
 | Statistics | Four full-height tiles in navy / purple / blue / gradient, big yellow number, white label. | `sections/statistics.twig` + `.stat--{tone}`. |
 | Cards | White card, image on top, a coloured label band with a slanted right edge overlapping the image bottom, navy title. | `components/card.twig`, `.card__band` with `clip-path`. |
-| Footer | Navy background, yellow uppercase column headings, plain white links, social icons and address block on the right, a rule and small legal text at the bottom. | `partials/footer.twig` + `footer.css`. |
+| Footer | Compact navy band: brand on the left, then social icons, the contact email and the legal links on the right. Wraps to a stack on narrow screens. | `partials/footer.twig` + `footer.css`. |
 | Whitespace | Large vertical rhythm (~64-96px) inside white panels; panels inset from the page edge. | `--panel-padding-y`, `--panel-padding-x`, `--section-gap`. |
 | Imagery | Photography of real people serving is central. | Placeholder SVG illustrations in brand colours are used until licensed photography is available (`assets/images/placeholders/`). Replace them, keep the crops (16:9 hero, 3:2 feature, 8:5 card). |
 

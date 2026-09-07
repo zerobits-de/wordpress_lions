@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Site header: utility bar, brand, primary navigation, actions, mobile nav.
+   Site header: brand, primary navigation, actions, mobile nav.
    ========================================================================== */
 
 .site-header {
@@ -8,41 +8,6 @@
   z-index: 100;
   background: var(--color-background);
   box-shadow: 0 1px 0 var(--color-border);
-}
-
-/* --- Utility bar ---------------------------------------------------------- */
-.utility-bar {
-  display: none;
-  background: var(--color-background);
-}
-
-.utility-bar__inner {
-  display: flex;
-  justify-content: flex-end;
-}
-
-.utility-nav__list {
-  display: flex;
-  gap: var(--space-5);
-  margin: 0;
-  padding: var(--space-2) 0;
-  list-style: none;
-}
-
-.utility-nav__link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35em;
-  font-size: var(--text-xs);
-  letter-spacing: var(--tracking-wider);
-  text-transform: uppercase;
-  text-decoration: none;
-  color: var(--color-text);
-}
-
-.utility-nav__link:hover {
-  color: var(--color-primary);
-  text-decoration: underline;
 }
 
 /* --- Main row --------------------------------------------------------------- */
@@ -95,11 +60,6 @@
   white-space: nowrap;
 }
 
-.brand--light,
-.brand--light .brand__wordmark {
-  color: var(--color-text-inverse);
-}
-
 .icon-button {
   display: inline-flex;
   align-items: center;
@@ -140,46 +100,6 @@
     font-size: var(--text-sm);
     line-height: 1.15;
   }
-}
-
-/* --- Search ----------------------------------------------------------------- */
-.site-search {
-  position: relative;
-}
-
-.site-search__panel {
-  position: absolute;
-  right: 0;
-  top: calc(100% + var(--space-2));
-  width: min(22rem, calc(100vw - 2 * var(--container-padding)));
-  padding: var(--space-3);
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-md);
-}
-
-.search-form {
-  display: flex;
-  gap: var(--space-2);
-}
-
-.search-form__input {
-  flex: 1 1 auto;
-  min-width: 0;
-  padding: 0.65em 0.9em;
-  border: 1px solid var(--color-border-strong);
-  border-radius: var(--radius-md);
-  background: var(--color-surface);
-}
-
-.search-form__input:focus {
-  border-color: var(--color-primary);
-  outline-offset: 0;
-}
-
-.search-form__submit {
-  padding-inline: var(--space-4);
 }
 
 /* --- Primary navigation (desktop) ------------------------------------------- */
@@ -304,8 +224,7 @@
 }
 
 .mobile-nav__list,
-.mobile-nav__submenu,
-.mobile-nav__utility-list {
+.mobile-nav__submenu {
   margin: 0;
   padding: 0;
   list-style: none;
@@ -378,22 +297,6 @@
   margin-block: var(--space-5);
 }
 
-.mobile-nav__utility-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-3) var(--space-5);
-  padding-block: var(--space-4);
-  border-top: 1px solid rgb(255 255 255 / 0.15);
-}
-
-.mobile-nav__utility-list a {
-  font-size: var(--text-xs);
-  letter-spacing: var(--tracking-wider);
-  text-transform: uppercase;
-  color: var(--color-text-inverse);
-  text-decoration: none;
-}
-
 .mobile-nav__social {
   margin-top: var(--space-4);
 }
@@ -405,10 +308,6 @@ body.has-open-nav {
 
 /* --- Desktop layout --------------------------------------------------------- */
 @media (min-width: 64em) {
-  .utility-bar {
-    display: block;
-  }
-
   .site-header__inner {
     grid-template-columns: auto 1fr auto;
     grid-template-areas:
@@ -441,11 +340,7 @@ body.has-open-nav {
     font-size: var(--text-xl);
   }
 
-  /* Compact state after scrolling: single row, utility bar hidden */
-  .site-header.is-compact .utility-bar {
-    display: none;
-  }
-
+  /* Compact state after scrolling: single row */
   .site-header.is-compact .site-header__inner {
     grid-template-areas: "brand nav actions";
     grid-template-columns: auto 1fr auto;

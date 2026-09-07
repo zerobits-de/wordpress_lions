@@ -90,6 +90,7 @@
   --shadow-lg: 0 16px 40px rgb(13 34 64 / 0.18);
   --transition-fast: 150ms ease;
   --transition-base: 250ms ease;
+  --transition-slow: 1200ms ease-in-out;  /* hero background cross-fade */
   --angle-cut: 4.5rem;           /* horizontal offset of diagonal photo edges */
 }
 
