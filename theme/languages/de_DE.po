@@ -129,7 +129,7 @@ msgstr "Bereit, etwas zu bewegen?"
 
 #: src/Content/FrontPageContent.php
 msgid "Get to know Lions Club Musterstadt as our guest."
-msgstr "Lernen Sie den Lions Club Musterstadt als Gast kennen."
+msgstr "Lernen Sie den Lions Club als Gast kennen."
 
 #: views/partials/footer.twig
 msgid "Legal"
