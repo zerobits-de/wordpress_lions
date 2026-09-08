@@ -76,6 +76,7 @@ WordPress template (page.php) -> Controller (src/Controllers) -> Timber context 
 | WP-CLI                            | `make wp ARGS="option get siteurl"`        |
 | Shell in container                | `make shell`                               |
 | Build release ZIP                 | `make build`                               |
+| Compile translations (.po -> .mo) | `make i18n`                                |
 
 ## Where things go
 

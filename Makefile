@@ -13,10 +13,10 @@ EXEC_TTY := $(COMPOSE) exec -w $(THEME_IN_CONTAINER) wordpress
 
 .DEFAULT_GOAL := help
 
-.PHONY: help up down restart logs shell db-shell composer install wp lint test cs-fix build set-version clean status
+.PHONY: help up down restart logs shell db-shell composer install wp lint test cs-fix build set-version i18n clean status
 
 help: ## Show this help
-	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-12s\033[0m %s\n", $$1, $$2}'
+	@grep -E '^[a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-12s\033[0m %s\n", $$1, $$2}'
 
 .env:
 	cp .env.example .env
@@ -72,6 +72,9 @@ build: ## Build the production package build/lions-theme.zip
 
 set-version: ## Write a version into style.css + Theme::VERSION (make set-version VERSION=1.0.4)
 	@sh bin/set-version.sh "$(VERSION)" $(THEME_DIR)
+
+i18n: ## Compile languages/*.po into the *.mo files WordPress reads (run after editing a .po)
+	@sh bin/compile-translations.sh $(THEME_DIR)
 
 clean: ## Remove build output, caches and vendor/ (containers + volumes untouched)
 	rm -rf build $(THEME_DIR)/vendor $(THEME_DIR)/.phpcs-cache $(THEME_DIR)/.phpstan-cache

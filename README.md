@@ -226,6 +226,11 @@ kept as written. The ZIP shows up under *Assets* when the run finishes, after ab
 Tags are plain versions (`1.0.4`), without a `v` prefix; the workflow rejects `v`-prefixed
 tags. **The tag is the version.**
 
+One thing the release does *not* do is compile translations: WordPress reads
+`theme/languages/*.mo`, and the ZIP contains those files exactly as committed. After editing
+a `.po`, run `make i18n` and commit the `.po` and `.mo` together - otherwise the release
+ships the previous translation.
+
 The same thing from the terminal, if you prefer - here the workflow creates the release too:
 
 ```bash

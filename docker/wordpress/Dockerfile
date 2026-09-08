@@ -12,7 +12,7 @@ COPY --from=composer:2 /usr/bin/composer /usr/local/bin/composer
 ADD --chmod=755 https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar /usr/local/bin/wp
 
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends git unzip less default-mysql-client \
+    && apt-get install -y --no-install-recommends git unzip less default-mysql-client gettext \
     && rm -rf /var/lib/apt/lists/*
 
 # Sensible PHP settings for local development.

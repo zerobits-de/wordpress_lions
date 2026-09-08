@@ -88,7 +88,11 @@ Publishing creates the tag, and the tag push starts `.github/workflows/release.y
    the terminal (`git tag 1.0.4 && git push origin 1.0.4`) instead.
 
 Notes written in the UI are left untouched; only the asset is added, so re-running the job
-is safe. Tags are plain versions (`1.0.4`), without a `v` prefix; the workflow rejects
+is safe.
+
+Translations are *not* compiled during the release - `bin/build.sh` copies the theme as
+committed, and WordPress reads `languages/*.mo`. Run `make i18n` after editing a `.po` and
+commit both files, or the release ships the previous translation. Tags are plain versions (`1.0.4`), without a `v` prefix; the workflow rejects
 `v`-prefixed tags so the release name and the theme version always agree. The tag is the
 single source of truth for the version.
 
