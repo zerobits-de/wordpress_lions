@@ -45,7 +45,7 @@ edges, statistic tiles, substantial navy footer) and implemented independently. 
 | Frontend | Plain CSS with custom properties, one small vanilla JS file; no build step, no framework |
 | Local env | Docker Compose (WordPress + MySQL 8.4), WP-CLI inside the container |
 | Quality | PHP_CodeSniffer + WordPress Coding Standards, PHPStan (level 6, WordPress stubs), Twig linter, structure check |
-| CI/CD | GitHub Actions: CI on push/PR, release on `v*` tags |
+| CI/CD | GitHub Actions: CI on push/PR, release on `1.2.3` tags (no `v` prefix) |
 
 ## Requirements
 
@@ -215,16 +215,22 @@ Migration alternatives (seed locally, then move the database) and CI-based deplo
 ## Release
 
 ```bash
-# 1. bump "Version:" in theme/style.css and Theme::VERSION in theme/src/Theme.php, commit
-# 2. tag and push
 git tag 1.0.0
 git push origin 1.0.0
 ```
 
-Tags are plain versions (`1.0.0`), without a `v` prefix.
+Tags are plain versions (`1.0.0`), without a `v` prefix. **The tag is the version** - there
+is no bump commit. `.github/workflows/release.yml` stamps the tag into `theme/style.css`
+and `Theme::VERSION` (via `bin/set-version.sh`), runs all validation, builds
+`lions-theme.zip` and publishes a GitHub Release with the ZIP attached.
 
-`.github/workflows/release.yml` checks that the tag matches the theme version, runs all
-validation, builds `lions-theme.zip` and publishes a GitHub Release with the ZIP attached.
+The version committed in `style.css` therefore only reflects the last manual edit and may
+lag behind the newest tag. To build a correctly versioned ZIP from a working tree:
+
+```bash
+make set-version VERSION=1.0.0
+make build
+```
 
 ## Working with AI agents
 

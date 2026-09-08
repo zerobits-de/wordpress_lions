@@ -13,7 +13,7 @@ EXEC_TTY := $(COMPOSE) exec -w $(THEME_IN_CONTAINER) wordpress
 
 .DEFAULT_GOAL := help
 
-.PHONY: help up down restart logs shell db-shell composer install wp lint test cs-fix build clean status
+.PHONY: help up down restart logs shell db-shell composer install wp lint test cs-fix build set-version clean status
 
 help: ## Show this help
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-12s\033[0m %s\n", $$1, $$2}'
@@ -69,6 +69,9 @@ cs-fix: ## Auto-fix coding standard violations (phpcbf)
 
 build: ## Build the production package build/lions-theme.zip
 	bash bin/build.sh
+
+set-version: ## Write a version into style.css + Theme::VERSION (make set-version VERSION=1.0.4)
+	@sh bin/set-version.sh "$(VERSION)" $(THEME_DIR)
 
 clean: ## Remove build output, caches and vendor/ (containers + volumes untouched)
 	rm -rf build $(THEME_DIR)/vendor $(THEME_DIR)/.phpcs-cache $(THEME_DIR)/.phpstan-cache

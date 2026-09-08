@@ -76,7 +76,6 @@ Never do this against a site that already has real content - it replaces the dat
 ## Releases
 
 ```
-# bump Version: in theme/style.css and Theme::VERSION, commit, then
 git tag 1.0.0
 git push origin 1.0.0
 ```
@@ -84,8 +83,13 @@ git push origin 1.0.0
 Tags are plain versions (`1.0.0`), without a `v` prefix; the workflow rejects `v`-prefixed
 tags so the release name and the theme version always agree.
 
-`.github/workflows/release.yml` verifies that the tag matches the theme version, runs the
-full validation, builds the ZIP and attaches it to a GitHub Release.
+The tag is the single source of truth for the version. `.github/workflows/release.yml`
+stamps it into `theme/style.css` and `Theme::VERSION` with `bin/set-version.sh`, runs the
+full validation, builds the ZIP and attaches it to a GitHub Release - so a release needs
+no version bump commit.
+
+Locally, `make set-version VERSION=1.0.0` applies the same rewrite (useful before
+`make build`, which otherwise packages whatever version is committed).
 
 ## Future deployment options
 

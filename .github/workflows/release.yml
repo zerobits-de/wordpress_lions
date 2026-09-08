@@ -1,8 +1,9 @@
 name: Release
 
 # Pushing a tag like 1.2.3 (no "v" prefix) validates, builds and publishes
-# lions-theme.zip as a GitHub Release. The tag must match the Version header
-# in theme/style.css.
+# lions-theme.zip as a GitHub Release. The tag is the source of truth for the
+# version: bin/set-version.sh stamps it into theme/style.css and Theme::VERSION
+# before the build, so no bump commit is required.
 
 on:
   push:
@@ -22,7 +23,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Check tag matches theme version
+      - name: Stamp version from tag
         run: |
           TAG="$GITHUB_REF_NAME"
           case "$TAG" in
@@ -31,19 +32,8 @@ jobs:
               exit 1
               ;;
           esac
-          VERSION=$(grep -E '^Version:' theme/style.css | awk '{print $2}')
-          if [ "$TAG" != "$VERSION" ]; then
-            echo "Tag $TAG does not match style.css Version: $VERSION"
-            echo "Bump 'Version:' in theme/style.css and Theme::VERSION, then re-tag."
-            exit 1
-          fi
-          PHP_VERSION_CONST=$(grep -E "const VERSION" theme/src/Theme.php | sed -E "s/.*'([^']+)'.*/\1/")
-          if [ "$TAG" != "$PHP_VERSION_CONST" ]; then
-            echo "Tag $TAG does not match Theme::VERSION: $PHP_VERSION_CONST"
-            echo "Bump 'Version:' in theme/style.css and Theme::VERSION, then re-tag."
-            exit 1
-          fi
-          echo "Releasing version $VERSION"
+          sh bin/set-version.sh "$TAG" theme
+          echo "Releasing version $TAG"
 
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
