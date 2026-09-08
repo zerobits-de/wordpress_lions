@@ -75,22 +75,22 @@ Never do this against a site that already has real content - it replaces the dat
 
 ## Releases
 
-```
-git tag 1.0.0
-git push origin 1.0.0
-```
+Releasing is a single step in the GitHub UI: **Releases > Draft a new release**, enter a
+new tag (`1.0.4`), target `main`, write the notes, **Publish release**. No version bump,
+commit or tag push is needed beforehand.
 
-Tags are plain versions (`1.0.0`), without a `v` prefix; the workflow rejects `v`-prefixed
-tags so the release name and the theme version always agree.
+Publishing creates the tag, and the tag push starts `.github/workflows/release.yml`, which
 
-Drafting the release in the GitHub UI works too: it creates the tag, and the workflow
-attaches `lions-theme.zip` to that release instead of creating a second one, leaving the
-notes you wrote in place.
+1. stamps the tag into `theme/style.css` and `Theme::VERSION` (`bin/set-version.sh`),
+2. runs the full validation (PHP lint, PHPCS, PHPStan, Twig lint, theme structure),
+3. builds `lions-theme.zip`,
+4. attaches the ZIP to the release - or creates the release, when the tag was pushed from
+   the terminal (`git tag 1.0.4 && git push origin 1.0.4`) instead.
 
-The tag is the single source of truth for the version. `.github/workflows/release.yml`
-stamps it into `theme/style.css` and `Theme::VERSION` with `bin/set-version.sh`, runs the
-full validation, builds the ZIP and attaches it to a GitHub Release - so a release needs
-no version bump commit.
+Notes written in the UI are left untouched; only the asset is added, so re-running the job
+is safe. Tags are plain versions (`1.0.4`), without a `v` prefix; the workflow rejects
+`v`-prefixed tags so the release name and the theme version always agree. The tag is the
+single source of truth for the version.
 
 Locally, `make set-version VERSION=1.0.0` applies the same rewrite (useful before
 `make build`, which otherwise packages whatever version is committed).

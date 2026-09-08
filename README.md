@@ -214,24 +214,30 @@ Migration alternatives (seed locally, then move the database) and CI-based deplo
 
 ## Release
 
+Cut the release on GitHub: **Releases > Draft a new release**, enter a new tag such as
+`1.0.4`, target `main`, write the notes, **Publish release**. That is the whole process -
+there is nothing to bump, commit or push first.
+
+Publishing creates the tag, which starts `.github/workflows/release.yml`. It stamps the tag
+into `theme/style.css` and `Theme::VERSION` (via `bin/set-version.sh`), runs all validation,
+builds `lions-theme.zip` and attaches it to the release you just published - your notes are
+kept as written. The ZIP shows up under *Assets* when the run finishes, after about a minute.
+
+Tags are plain versions (`1.0.4`), without a `v` prefix; the workflow rejects `v`-prefixed
+tags. **The tag is the version.**
+
+The same thing from the terminal, if you prefer - here the workflow creates the release too:
+
 ```bash
-git tag 1.0.0
-git push origin 1.0.0
+git tag 1.0.4 && git push origin 1.0.4
 ```
 
-You can equally draft the release in the GitHub UI - creating it there creates the tag, and
-the workflow attaches the ZIP to the release you drafted, keeping your release notes.
-
-Tags are plain versions (`1.0.0`), without a `v` prefix. **The tag is the version** - there
-is no bump commit. `.github/workflows/release.yml` stamps the tag into `theme/style.css`
-and `Theme::VERSION` (via `bin/set-version.sh`), runs all validation, builds
-`lions-theme.zip` and publishes a GitHub Release with the ZIP attached.
-
-The version committed in `style.css` therefore only reflects the last manual edit and may
-lag behind the newest tag. To build a correctly versioned ZIP from a working tree:
+Because the version is stamped during the release run, the one committed in `style.css`
+only reflects the last manual edit and may lag behind the newest tag. To build a correctly
+versioned ZIP from a working tree:
 
 ```bash
-make set-version VERSION=1.0.0
+make set-version VERSION=1.0.4
 make build
 ```
 

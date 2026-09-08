@@ -1,9 +1,10 @@
 name: Release
 
-# Pushing a tag like 1.2.3 (no "v" prefix) validates, builds and publishes
-# lions-theme.zip as a GitHub Release. The tag is the source of truth for the
-# version: bin/set-version.sh stamps it into theme/style.css and Theme::VERSION
-# before the build, so no bump commit is required.
+# Publishing a release in the GitHub UI (or pushing a tag like 1.2.3, no "v"
+# prefix) validates, builds and attaches lions-theme.zip to that release.
+# The tag is the source of truth for the version: bin/set-version.sh stamps it
+# into theme/style.css and Theme::VERSION before the build, so no bump commit
+# is required.
 
 on:
   push:
