@@ -2,7 +2,7 @@
 # Covers the strings rendered on the front page.
 msgid ""
 msgstr ""
-"Project-Id-Version: Lions International Theme 0.1.0\n"
+"Project-Id-Version: Lions International Theme 1.0.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/lions-theme\n"
 "Language: de_DE\n"
 "MIME-Version: 1.0\n"
