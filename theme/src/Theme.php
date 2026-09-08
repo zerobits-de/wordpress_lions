@@ -29,7 +29,7 @@ use Timber\Timber;
  */
 final class Theme {
 
-	public const VERSION     = '1.0.2';
+	public const VERSION     = '1.0.3';
 	public const TEXT_DOMAIN = 'lions-theme';
 
 	/**
