@@ -9,15 +9,15 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-09-07T11:44:47+00:00\n"
+"POT-Creation-Date: 2026-09-08T11:33:33+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: lions-theme\n"
 
 #. Theme Name of the theme
 #: style.css
-#: src/Functions/Customizer.php:71
-#: src/Functions/Customizer.php:124
+#: src/Functions/Customizer.php:86
+#: src/Functions/Customizer.php:139
 msgid "Lions International"
 msgstr ""
 
@@ -60,55 +60,56 @@ msgid "Small acts. Global reach."
 msgstr ""
 
 #: src/Content/FrontPageContent.php:43
-#: src/Content/FrontPageContent.php:221
+#: src/Content/FrontPageContent.php:255
 msgid "Become a member"
 msgstr ""
 
-#: src/Content/FrontPageContent.php:96
-msgid "Seventeen members founded Lions Club Musterstadt in January 1983. Ever since, the club has helped where help is needed in Musterstadt and the surrounding Verbandsgemeinde, guided by one motto: We serve."
-msgstr ""
-
-#: src/Content/FrontPageContent.php:97
-msgid "The Inclusion Cup, the advent calendar campaign and our benefit concerts fund very concrete things: school projects, sports equipment, and support for people with disabilities in the region."
-msgstr ""
-
-#: src/Content/FrontPageContent.php:101
+#: src/Content/FrontPageContent.php:106
+#: src/Functions/Customizer.php:44
 msgid "Serving Musterstadt since 1983"
 msgstr ""
 
-#: src/Content/FrontPageContent.php:108
+#: src/Content/FrontPageContent.php:110
+msgid "Seventeen members founded Lions Club Musterstadt in January 1983. Ever since, the club has helped where help is needed in Musterstadt and the surrounding Verbandsgemeinde, guided by one motto: We serve."
+msgstr ""
+
+#: src/Content/FrontPageContent.php:111
+msgid "The Inclusion Cup, the advent calendar campaign and our benefit concerts fund very concrete things: school projects, sports equipment, and support for people with disabilities in the region."
+msgstr ""
+
+#: src/Content/FrontPageContent.php:119
 msgid "More about the club"
 msgstr ""
 
-#: src/Content/FrontPageContent.php:122
+#: src/Content/FrontPageContent.php:156
 msgid "Service at scale"
 msgstr ""
 
-#: src/Content/FrontPageContent.php:126
+#: src/Content/FrontPageContent.php:160
 msgid "members worldwide"
 msgstr ""
 
-#: src/Content/FrontPageContent.php:131
+#: src/Content/FrontPageContent.php:165
 msgid "local clubs"
 msgstr ""
 
-#: src/Content/FrontPageContent.php:136
+#: src/Content/FrontPageContent.php:170
 msgid "countries and areas"
 msgstr ""
 
-#: src/Content/FrontPageContent.php:141
+#: src/Content/FrontPageContent.php:175
 msgid "years of service"
 msgstr ""
 
-#: src/Content/FrontPageContent.php:199
+#: src/Content/FrontPageContent.php:233
 msgid "Read more"
 msgstr ""
 
-#: src/Content/FrontPageContent.php:217
+#: src/Content/FrontPageContent.php:251
 msgid "Ready to make a difference?"
 msgstr ""
 
-#: src/Content/FrontPageContent.php:218
+#: src/Content/FrontPageContent.php:252
 msgid "Get to know Lions Club Musterstadt as our guest."
 msgstr ""
 
@@ -116,66 +117,86 @@ msgstr ""
 msgid "Stories"
 msgstr ""
 
-#: src/Functions/Customizer.php:40
+#: src/Functions/Customizer.php:41
+msgid "Heading"
+msgstr ""
+
+#: src/Functions/Customizer.php:48
+msgid "Text"
+msgstr ""
+
+#: src/Functions/Customizer.php:55
 msgid "Join URL"
 msgstr ""
 
-#: src/Functions/Customizer.php:47
+#: src/Functions/Customizer.php:62
 msgid "Donate URL"
 msgstr ""
 
-#: src/Functions/Customizer.php:68
+#: src/Functions/Customizer.php:83
 msgid "Organisation name"
 msgstr ""
 
-#: src/Functions/Customizer.php:75
+#: src/Functions/Customizer.php:90
 msgid "Phone"
 msgstr ""
 
-#: src/Functions/Customizer.php:82
+#: src/Functions/Customizer.php:97
 msgid "Email"
 msgstr ""
 
-#: src/Functions/Customizer.php:131
+#: src/Functions/Customizer.php:146
 msgid "Homepage hero"
 msgstr ""
 
 #. translators: %d: maximum number of hero background images.
-#: src/Functions/Customizer.php:134
+#: src/Functions/Customizer.php:149
 #, php-format
 msgid "Up to %d background images for the homepage hero. Leave a slot empty to skip it. With more than one image they cross-fade; with none the theme placeholder is used."
 msgstr ""
 
-#: src/Functions/Customizer.php:139
+#: src/Functions/Customizer.php:154
+msgid "Homepage intro"
+msgstr ""
+
+#: src/Functions/Customizer.php:155
+msgid "The first photo block below the hero. Leave the heading or the text empty to keep the theme default; the text also falls back to the content of the \"Home\" page when it is set there. Without an image the theme placeholder is used."
+msgstr ""
+
+#: src/Functions/Customizer.php:158
 msgid "Homepage feature blocks"
 msgstr ""
 
-#: src/Functions/Customizer.php:140
+#: src/Functions/Customizer.php:159
 msgid "Posts in the chosen category are shown on the homepage as large photo blocks, the same layout as the intro block. Assign a post to that category to add a block; remove it to take the block away. Choose \"None\" to show no blocks at all."
 msgstr ""
 
-#: src/Functions/Customizer.php:143
+#: src/Functions/Customizer.php:162
 msgid "Calls to action"
 msgstr ""
 
-#: src/Functions/Customizer.php:147
+#: src/Functions/Customizer.php:166
 msgid "Social profiles"
 msgstr ""
 
-#: src/Functions/Customizer.php:151
+#: src/Functions/Customizer.php:170
 msgid "Contact & legal"
 msgstr ""
 
-#: src/Functions/Customizer.php:244
+#: src/Functions/Customizer.php:295
+msgid "Image"
+msgstr ""
+
+#: src/Functions/Customizer.php:309
 msgid "— None —"
 msgstr ""
 
-#: src/Functions/Customizer.php:262
+#: src/Functions/Customizer.php:327
 msgid "Category"
 msgstr ""
 
 #. translators: %d: position of the image in the hero background.
-#: src/Functions/Customizer.php:300
+#: src/Functions/Customizer.php:365
 #, php-format
 msgid "Background image %d"
 msgstr ""

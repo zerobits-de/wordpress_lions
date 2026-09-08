@@ -75,7 +75,11 @@ Native WordPress only:
   block at all when a post has none. `components/story-card.twig` uses `lions-card` and
   does fall back to `assets/images/placeholders/story.svg`, so the archive grid stays even.
   Image sizes are declared in `src/Functions/ThemeSupport.php`.
-- **Front page**: the "Home" page's block content feeds the intro section; other homepage
+- **Front page**: the intro block is edited under Customizer > Lions International >
+  Homepage intro (`lions_intro_title`, `lions_intro_text`, `lions_intro_image` — the image
+  as an attachment ID like the hero ones). `FrontPageContent::intro()` falls back to the
+  "Home" page's block content when the text field is empty, then to the placeholder copy,
+  and to `assets/images/placeholders/feature-1.svg` when no image is picked. Other homepage
   sections come from `src/Content/FrontPageContent.php`.
 - **Homepage feature blocks**: posts in the category chosen under Customizer > Lions
   International > Homepage feature blocks (`lions_feature_category`) render as photo

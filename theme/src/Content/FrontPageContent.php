@@ -79,17 +79,31 @@ final class FrontPageContent {
 	}
 
 	/**
-	 * Intro: editors control it through the "Home" page content. Falls back to
-	 * placeholder copy when that page is empty.
+	 * Intro: the first photo block below the hero.
+	 *
+	 * Heading, text and image come from Customizer > Lions International > Homepage
+	 * intro. The text keeps its older sources as fallbacks: the "Home" page content
+	 * when the Customizer field is empty, then the placeholder copy below.
 	 *
 	 * @param Post|null $page The front page post, if any.
-	 * @return array{title: string, body: string, image: array{src: string, alt: string}, action: array{label: string, url: string, variant: string}}
+	 * @return array{title: string, body: string, image: Image|array{src: string, alt: string}, action: array{label: string, url: string, variant: string}}
 	 */
 	public function intro( ?Post $page ): array {
-		$body = '';
+		$title = trim( Customizer::mod( 'intro_title' ) );
+		$body  = trim( Customizer::mod( 'intro_text' ) );
 
-		if ( $page instanceof Post ) {
+		if ( '' !== $body ) {
+			// Editors type plain paragraphs into the Customizer textarea; wpautop()
+			// turns the blank lines into the markup .prose expects.
+			$body = wpautop( $body );
+		}
+
+		if ( '' === $body && $page instanceof Post ) {
 			$body = trim( (string) $page->content() );
+		}
+
+		if ( '' === $title ) {
+			$title = __( 'Serving Musterstadt since 1983', 'lions-theme' );
 		}
 
 		if ( '' === $body ) {
@@ -98,17 +112,37 @@ final class FrontPageContent {
 		}
 
 		return array(
-			'title'  => __( 'Serving Musterstadt since 1983', 'lions-theme' ),
+			'title'  => $title,
 			'body'   => $body,
-			'image'  => array(
-				'src' => Theme::url( 'assets/images/placeholders/feature-1.svg' ),
-				'alt' => '',
-			),
+			'image'  => $this->intro_image(),
 			'action' => array(
 				'label'   => __( 'More about the club', 'lions-theme' ),
 				'url'     => $this->page_url( 'our-history', '/our-history/' ),
 				'variant' => 'primary',
 			),
+		);
+	}
+
+	/**
+	 * Image for the intro block: the one picked in the Customizer, else the
+	 * theme placeholder.
+	 *
+	 * @return Image|array{src: string, alt: string}
+	 */
+	private function intro_image() {
+		$id = Customizer::intro_image_id();
+
+		if ( $id > 0 ) {
+			$image = Timber::get_image( $id );
+
+			if ( $image instanceof Image ) {
+				return $image;
+			}
+		}
+
+		return array(
+			'src' => Theme::url( 'assets/images/placeholders/feature-1.svg' ),
+			'alt' => '',
 		);
 	}
 

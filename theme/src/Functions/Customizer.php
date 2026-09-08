@@ -16,9 +16,10 @@ use WP_Customize_Media_Control;
 /**
  * "Lions International" panel in Appearance > Customize.
  *
- * Editors manage the homepage hero background, calls to action, social profiles
- * and contact details here without touching templates. Text values are read via
- * Customizer::mod(), the hero images via Customizer::hero_image_ids().
+ * Editors manage the homepage hero background, the homepage intro block, calls to
+ * action, social profiles and contact details here without touching templates. Text
+ * values are read via Customizer::mod(), the hero images via
+ * Customizer::hero_image_ids() and the intro image via Customizer::intro_image_id().
  */
 final class Customizer implements Registrable {
 
@@ -36,6 +37,20 @@ final class Customizer implements Registrable {
 	 */
 	private static function settings(): array {
 		return array(
+			'intro_title'          => array(
+				'label'    => __( 'Heading', 'lions-theme' ),
+				'section'  => 'intro',
+				'type'     => 'text',
+				'default'  => __( 'Serving Musterstadt since 1983', 'lions-theme' ),
+				'sanitize' => 'sanitize_text_field',
+			),
+			'intro_text'           => array(
+				'label'    => __( 'Text', 'lions-theme' ),
+				'section'  => 'intro',
+				'type'     => 'textarea',
+				'default'  => '',
+				'sanitize' => 'wp_kses_post',
+			),
 			'cta_join_url'         => array(
 				'label'    => __( 'Join URL', 'lions-theme' ),
 				'section'  => 'cta',
@@ -135,6 +150,10 @@ final class Customizer implements Registrable {
 					self::HERO_IMAGES
 				),
 			),
+			'intro'    => array(
+				'title'       => __( 'Homepage intro', 'lions-theme' ),
+				'description' => __( 'The first photo block below the hero. Leave the heading or the text empty to keep the theme default; the text also falls back to the content of the "Home" page when it is set there. Without an image the theme placeholder is used.', 'lions-theme' ),
+			),
 			'features' => array(
 				'title'       => __( 'Homepage feature blocks', 'lions-theme' ),
 				'description' => __( 'Posts in the chosen category are shown on the homepage as large photo blocks, the same layout as the intro block. Assign a post to that category to add a block; remove it to take the block away. Choose "None" to show no blocks at all.', 'lions-theme' ),
@@ -165,6 +184,7 @@ final class Customizer implements Registrable {
 		}
 
 		$this->register_hero_images( $wp_customize );
+		$this->register_intro_image( $wp_customize );
 		$this->register_feature_category( $wp_customize );
 
 		foreach ( self::settings() as $id => $setting ) {
@@ -210,6 +230,18 @@ final class Customizer implements Registrable {
 	}
 
 	/**
+	 * Attachment ID chosen for the homepage intro block.
+	 *
+	 * Returns 0 when nothing is picked or the attachment is gone, so the caller
+	 * can fall back to the theme placeholder.
+	 */
+	public static function intro_image_id(): int {
+		$id = absint( get_theme_mod( 'lions_intro_image', 0 ) );
+
+		return ( $id > 0 && 'attachment' === get_post_type( $id ) ) ? $id : 0;
+	}
+
+	/**
 	 * Category whose posts are rendered as homepage feature blocks.
 	 *
 	 * Returns 0 when no category is chosen or the chosen one no longer exists.
@@ -233,6 +265,39 @@ final class Customizer implements Registrable {
 		$id = absint( $value );
 
 		return get_term( $id, 'category' ) instanceof \WP_Term ? (string) $id : '0';
+	}
+
+	/**
+	 * Media library picker for the homepage intro block.
+	 *
+	 * Stored as an attachment ID (not a URL), like the hero images, so Timber can
+	 * generate the `lions-feature` size and a srcset for it.
+	 *
+	 * @param WP_Customize_Manager $wp_customize Customizer manager.
+	 */
+	private function register_intro_image( WP_Customize_Manager $wp_customize ): void {
+		$wp_customize->add_setting(
+			'lions_intro_image',
+			array(
+				'type'              => 'theme_mod',
+				// A string default: WP_Customize_Manager::add_setting() is typed for
+				// string defaults. absint() turns the stored value back into an ID.
+				'default'           => '0',
+				'sanitize_callback' => 'absint',
+			)
+		);
+
+		$wp_customize->add_control(
+			new WP_Customize_Media_Control(
+				$wp_customize,
+				'lions_intro_image',
+				array(
+					'label'     => __( 'Image', 'lions-theme' ),
+					'section'   => self::PANEL . '_intro',
+					'mime_type' => 'image',
+				)
+			)
+		);
 	}
 
 	/**
