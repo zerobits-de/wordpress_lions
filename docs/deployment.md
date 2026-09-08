@@ -77,9 +77,12 @@ Never do this against a site that already has real content - it replaces the dat
 
 ```
 # bump Version: in theme/style.css and Theme::VERSION, commit, then
-git tag v1.0.0
-git push origin v1.0.0
+git tag 1.0.0
+git push origin 1.0.0
 ```
+
+Tags are plain versions (`1.0.0`), without a `v` prefix; the workflow rejects `v`-prefixed
+tags so the release name and the theme version always agree.
 
 `.github/workflows/release.yml` verifies that the tag matches the theme version, runs the
 full validation, builds the ZIP and attaches it to a GitHub Release.
@@ -95,7 +98,7 @@ Any of the following can be added as a job after the build step.
      then `wp cache flush` over SSH.
    - Use a GitHub *environment* (`production`) with required reviewers for a manual gate.
 2. **WP-CLI theme install**
-   - `wp theme install https://github.com/<org>/<repo>/releases/download/v1.0.0/lions-theme.zip --force`
+   - `wp theme install https://github.com/<org>/<repo>/releases/download/1.0.0/lions-theme.zip --force`
      run on the server (via SSH step or a host-side webhook).
 3. **Git-based hosts** (WP Engine, Kinsta, Pantheon)
    - Push the built `build/lions-theme/` directory to the host's deploy branch/remote

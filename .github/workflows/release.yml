@@ -1,7 +1,8 @@
 name: Release
 
-# Pushing a tag like v1.2.3 validates, builds and publishes lions-theme.zip
-# as a GitHub Release. The tag must match the Version header in theme/style.css.
+# Pushing a tag like 1.2.3 (no "v" prefix) validates, builds and publishes
+# lions-theme.zip as a GitHub Release. The tag must match the Version header
+# in theme/style.css.
 
 on:
   push:
@@ -23,10 +24,22 @@ jobs:
 
       - name: Check tag matches theme version
         run: |
-          TAG="${GITHUB_REF_NAME#v}"
+          TAG="$GITHUB_REF_NAME"
+          case "$TAG" in
+            v*)
+              echo "Tag $TAG uses a 'v' prefix; tags are plain versions like ${TAG#v}."
+              exit 1
+              ;;
+          esac
           VERSION=$(grep -E '^Version:' theme/style.css | awk '{print $2}')
           if [ "$TAG" != "$VERSION" ]; then
-            echo "Tag v$TAG does not match style.css Version: $VERSION"
+            echo "Tag $TAG does not match style.css Version: $VERSION"
+            echo "Bump 'Version:' in theme/style.css and Theme::VERSION, then re-tag."
+            exit 1
+          fi
+          PHP_VERSION_CONST=$(grep -E "const VERSION" theme/src/Theme.php | sed -E "s/.*'([^']+)'.*/\1/")
+          if [ "$TAG" != "$PHP_VERSION_CONST" ]; then
+            echo "Tag $TAG does not match Theme::VERSION: $PHP_VERSION_CONST"
             echo "Bump 'Version:' in theme/style.css and Theme::VERSION, then re-tag."
             exit 1
           fi

@@ -217,9 +217,11 @@ Migration alternatives (seed locally, then move the database) and CI-based deplo
 ```bash
 # 1. bump "Version:" in theme/style.css and Theme::VERSION in theme/src/Theme.php, commit
 # 2. tag and push
-git tag v1.0.0
-git push origin v1.0.0
+git tag 1.0.0
+git push origin 1.0.0
 ```
+
+Tags are plain versions (`1.0.0`), without a `v` prefix.
 
 `.github/workflows/release.yml` checks that the tag matches the theme version, runs all
 validation, builds `lions-theme.zip` and publishes a GitHub Release with the ZIP attached.
