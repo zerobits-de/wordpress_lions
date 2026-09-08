@@ -156,6 +156,42 @@
   }
 
   /* ---------------------------------------------------------------------
+   * Header measurements
+   *
+   * The header is fixed, so CSS needs two numbers it cannot work out itself:
+   * how much space to reserve for it in the page, and where its lower edge is
+   * for the mobile panel to start. The reserved space is always the *expanded*
+   * height - if it followed the compact height the page would resize on every
+   * state change, which is what made the header flicker.
+   * ------------------------------------------------------------------- */
+  var root = doc.documentElement;
+
+  function setHeaderBottom() {
+    if (header) {
+      root.style.setProperty('--header-bottom', header.getBoundingClientRect().bottom + 'px');
+    }
+  }
+
+  function measureHeader() {
+    if (!header) { return; }
+
+    var compact = header.classList.contains('is-compact');
+
+    // Reading the expanded height with the class off is safe: nothing is
+    // painted between the two statements, so this cannot flash.
+    if (compact) { header.classList.remove('is-compact'); }
+    var expanded = header.getBoundingClientRect().height;
+    if (compact) { header.classList.add('is-compact'); }
+
+    root.style.setProperty('--header-flow-height', expanded + 'px');
+    setHeaderBottom();
+  }
+
+  measureHeader();
+  window.addEventListener('resize', measureHeader);
+  window.addEventListener('load', measureHeader);
+
+  /* ---------------------------------------------------------------------
    * Compact header after scrolling (desktop)
    * ------------------------------------------------------------------- */
   if (header && 'IntersectionObserver' in window) {
@@ -166,6 +202,7 @@
 
     var observer = new IntersectionObserver(function (entries) {
       header.classList.toggle('is-compact', !entries[0].isIntersecting);
+      setHeaderBottom();
     });
     observer.observe(sentinel);
   }

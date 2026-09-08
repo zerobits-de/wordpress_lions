@@ -2,12 +2,45 @@
    Site header: brand, primary navigation, actions, mobile nav.
    ========================================================================== */
 
+/* The header is taken out of the flow on purpose. As a sticky element it still
+   occupies its own height in the document, so switching to the compact state
+   shortened the page, the browser's scroll anchoring pulled the scroll position
+   back up, that put the compact trigger out of range again - and the header
+   flickered between both states for as long as you stayed near the threshold.
+   Out of flow, the state change no longer touches the document height. */
 .site-header {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 100;
   background: var(--color-background);
   box-shadow: 0 1px 0 var(--color-border);
+}
+
+/* Reserve the space the header would have taken. The value stays at the
+   *expanded* height in both states, so compacting never reflows the page.
+   main.js overrides it with the measured height once it runs. */
+body {
+  padding-top: var(--header-flow-height, var(--header-height-expanded));
+}
+
+/* WordPress pins its admin bar to the top for logged-in editors (32px, 46px on
+   small screens, and it scrolls away below 600px). */
+body.admin-bar .site-header {
+  top: 32px;
+}
+
+@media screen and (max-width: 782px) {
+  body.admin-bar .site-header {
+    top: 46px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  body.admin-bar .site-header {
+    top: 0;
+  }
 }
 
 /* --- Main row --------------------------------------------------------------- */
@@ -41,10 +74,12 @@
   color: var(--color-text);
 }
 
+/* Deliberately not transitioned: the rest of the compact state (grid areas,
+   wordmark, nav padding) switches in one frame, and animating the mark alone
+   made the header keep shrinking for a quarter second after the switch. */
 .brand__mark {
   width: 3rem;
   height: 3rem;
-  transition: width var(--transition-base), height var(--transition-base);
 }
 
 .brand__logo {
@@ -208,19 +243,39 @@
 }
 
 /* --- Mobile navigation (off-canvas) ----------------------------------------- */
+/* `--header-bottom` is the measured lower edge of the header (main.js), so the
+   panel starts exactly below it whatever the header actually measures - the
+   token alone was a guess that left a strip of the page showing through. */
 .mobile-nav {
   position: fixed;
-  inset: var(--header-height) 0 0 0;
+  inset: var(--header-bottom, var(--header-height)) 0 0 0;
   z-index: 90;
   background: var(--color-navy);
   color: var(--color-text-inverse);
   overflow: hidden;
+  /* The panel appears from `display: none` on top of an already scrolled page.
+     Mobile browsers sometimes skip painting parts of it in that situation - the
+     reported symptom was social buttons showing as empty circles. Giving the
+     panel its own compositing layer makes that paint deterministic. */
+  transform: translateZ(0);
+}
+
+/* iOS lays fixed elements out against the large viewport, so `bottom: 0` sits
+   behind the browser toolbar and clips the last row of the panel - which is the
+   social links. Size against the dynamic viewport where it is supported. */
+@supports (height: 100dvh) {
+  .mobile-nav {
+    bottom: auto;
+    height: calc(100dvh - var(--header-bottom, var(--header-height)));
+  }
 }
 
 .mobile-nav__scroll {
   height: 100%;
   overflow-y: auto;
-  padding: var(--space-5) var(--container-padding) var(--space-8);
+  overscroll-behavior: contain;
+  padding: var(--space-5) var(--container-padding)
+    calc(var(--space-8) + env(safe-area-inset-bottom, 0px));
 }
 
 .mobile-nav__list,

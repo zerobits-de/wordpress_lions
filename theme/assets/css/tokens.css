@@ -78,7 +78,8 @@
   --container-width: 82.5rem;    /* 1320px */
   --container-narrow: 48rem;     /* 768px  prose */
   --container-padding: clamp(1rem, 3vw, 2rem);
-  --header-height: 4.5rem;
+  --header-height: 4.5rem;          /* compact bar; also the scroll-padding offset */
+  --header-height-expanded: 4.5rem; /* space the fixed header reserves in the page */
 
   /* --- Shape & motion ------------------------------------------------- */
   --radius-sm: 3px;
@@ -92,6 +93,15 @@
   --transition-base: 250ms ease;
   --transition-slow: 1200ms ease-in-out;  /* hero background cross-fade */
   --angle-cut: 4.5rem;           /* horizontal offset of diagonal photo edges */
+}
+
+/* The two-row header only exists from the large breakpoint up. main.js replaces
+   this with the measured height so an editor adding menu items cannot push
+   content under the header. */
+@media (min-width: 64em) {
+  :root {
+    --header-height-expanded: 8.5rem;
+  }
 }
 
 /* Breakpoints are documented here for reference; CSS custom properties can't
