@@ -219,6 +219,9 @@ git tag 1.0.0
 git push origin 1.0.0
 ```
 
+You can equally draft the release in the GitHub UI - creating it there creates the tag, and
+the workflow attaches the ZIP to the release you drafted, keeping your release notes.
+
 Tags are plain versions (`1.0.0`), without a `v` prefix. **The tag is the version** - there
 is no bump commit. `.github/workflows/release.yml` stamps the tag into `theme/style.css`
 and `Theme::VERSION` (via `bin/set-version.sh`), runs all validation, builds

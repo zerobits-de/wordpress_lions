@@ -83,6 +83,10 @@ git push origin 1.0.0
 Tags are plain versions (`1.0.0`), without a `v` prefix; the workflow rejects `v`-prefixed
 tags so the release name and the theme version always agree.
 
+Drafting the release in the GitHub UI works too: it creates the tag, and the workflow
+attaches `lions-theme.zip` to that release instead of creating a second one, leaving the
+notes you wrote in place.
+
 The tag is the single source of truth for the version. `.github/workflows/release.yml`
 stamps it into `theme/style.css` and `Theme::VERSION` with `bin/set-version.sh`, runs the
 full validation, builds the ZIP and attaches it to a GitHub Release - so a release needs
